@@ -1,0 +1,66 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/EstilosFormRegistro.css' %}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <title>Registrarme</title>
+</head>
+<body>
+
+
+<div class="container-form register">
+    <div class="information">
+        <div class="info-childs">
+            <h2>Bienvenido</h2>
+            <p>para acceder a todo nuestro contenido Registrate </p>
+            <input type="button" value="iniciar sesión" id="sign-in">
+        </div>
+    </div>
+    <div class="form-information">
+        <div class="form-information-childs">
+            <h2>Crear una cuenta</h2>
+            <div class="icons">
+                <i class='bx bxl-google'></i>
+                <i class='bx bxl-github'></i>
+                <i class='bx bxl-facebook'></i>
+            </div>
+            <p>o usa tu email para registrarte</p>
+            {% if error_message %}
+            <p class="error">{{ error_message }}</p>
+            {% endif %}
+            <form method="post" class="form" action="{% url 'Registro' %}">
+                {% csrf_token %}
+                <label >
+                    <i class='bx bx-envelope' ></i>
+                    <input type="text" placeholder="Nombre de Usuario" id="username" name="username" required>
+                </label>
+
+                <label >
+                    <i class='bx bx-envelope' ></i>
+                    <input type="email" name="email" required="" id="id_email" placeholder="Correo electronico">
+                </label>
+                <label >
+                    <i class='bx bx-lock-alt' ></i>
+                    <input type="password" name="password" required="" id="id_password" placeholder="Contraseña">
+                </label>
+                <input type="submit" value="Registrarse" >
+            </form>
+        </div>
+    </div>
+</div>
+
+<script>
+    document.getElementById('sign-in').addEventListener('click', function() {
+        // Redirecciona a la página deseada
+        window.location.href = '/IniciarSesion';
+    });
+</script>
+
+</body>
+</html>

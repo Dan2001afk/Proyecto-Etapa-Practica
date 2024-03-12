@@ -1,0 +1,73 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="{% static 'js/Autenticacion.js' %}"></script>
+    <link rel="stylesheet" href="{% static 'css/EstilosFormularios.css' %}">
+    <link rel="stylesheet" href="{% static 'css/Login.css' %}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <title>Iniciar Sesion</title>
+</head>
+<body>
+
+
+
+             <div class="container-form login ">
+            <div class="information">
+                <div class="info-childs">
+                    <h2>¡¡Bienvenido nuevamente!!</h2>
+                    <p>para acceder a todo nuestro contenido Inicia Sesión</p>
+                    <input type="button" value="Registrarse" id="sign-up" href="/RegistrarUsuarios">
+                </div>
+            </div>
+            <div class="form-information">
+                <div class="form-information-childs">
+                    <h2>Iniciar Sesión</h2>
+                    <div class="icons">
+                        <i class='bx bxl-google'></i>
+                        <i class='bx bxl-github'></i>
+                        <i class='bx bxl-facebook'></i>
+                    </div>
+                    <p>o Iniciar Sesión con una cuenta</p>
+                    <p id="error" class="error">
+
+                        {% if error_message == "INVALID_PASSWORD" %}
+                            Contraseña incorrecta.
+                        {% elif error_message == "EMAIL_NOT_FOUND" %}
+                            Usuario no registrado.
+                        {% elif error_message == "USER_DISABLED" %}
+                            Bloqueo de cuenta.
+                        {% else %}
+                            {{ error_message }}
+                        {% endif %}
+                        
+                    </p>
+                    <form method="post" class="form" action="{% url 'login' %}" onsubmit="return validateForm();">
+                        {% csrf_token %}
+                        <label >
+                            <i class='bx bx-envelope' ></i>
+                            <input type="email" placeholder="Correo electronico" id="email" name="email" required>
+                        </label>
+                        <label >
+                            <i class='bx bx-lock-alt' ></i>
+                            <input type="password" placeholder="Contraseña" id="password" name="password" required>
+                        </label>
+                        <a class="recuperar" href="/reset-password">recuperar contraseña</a>
+
+                        <input type="submit" value="Iniciar Sesión">
+                    </form>
+                </div>
+            </div>
+        </div> 
+
+
+         <script src="{% static 'js/ScriptFormularios.js' %}"></script> 
+
+</body>
+</html>

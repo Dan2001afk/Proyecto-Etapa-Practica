@@ -1,0 +1,32 @@
+
+#container {
+    padding: 0px;
+    width: 100vw;
+}
+
+#container {
+    padding: 0px;
+    width: 100vw;
+    display: flex;
+    flex-flow: column nowrap;
+  }
+
+#main {
+    height: 100%;
+    overflow-y: auto;
+    padding: 0 15px;
+    transition: all 0.2s cubic-bezier(1, 0.04, 0, 0.85);
+    flex-grow: 1;
+  }
+
+#responsive-grid {
+  height: 100%;
+}
+
+#header-design-provider {
+    --neutral-fill-hover: var(--header-background);
+    --neutral-fill-rest: var(--header-background);
+    --neutral-foreground-rest: var(--header-color);
+    background: var(--header-background);
+    color: var(--header-color);
+  }

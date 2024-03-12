@@ -1,0 +1,162 @@
+#dashboard {
+    text-align: center;
+    padding: 10px;
+    background-color: #f7f7f7;
+    width: 100%;
+    height: 500px;
+}
+
+h1 {
+    text-align: center;
+    margin: 20px 0;
+}
+
+form {
+    background-color: #fff;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    padding: 20px;
+    max-width: 400px;
+    margin: 0 auto;
+}
+
+label {
+    display: block;
+    margin-top: 10px;
+}
+
+select, #chartLabel, #chartLabels, #chartData {
+    width: 100%;
+    padding: 10px;
+    margin-top: 5px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+}
+
+button {
+    background-color: #007BFF;
+    color: #fff;
+    border: none;
+    border-radius: 3px;
+    padding: 10px 15px;
+    margin-top: 10px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
+canvas {
+    display: block;
+    margin: 20px auto;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+h1 {
+    text-align: center;
+    margin: 20px 0;
+}
+
+/* Estilos para el botón de apertura del modal */
+.open-button {
+    background-color: #007BFF;
+    color: #fff;
+    border: none;
+    border-radius: 3px;
+    padding: 10px 15px;
+    margin: 10px;
+    cursor: pointer;
+}
+
+.open-button:hover {
+    background-color: #0056b3;
+}
+
+/* Estilos para el modal */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0,0,0,0.7);
+}
+
+.modal-content {
+    background-color: #fff;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    padding: 20px;
+    max-width: 400px;
+    margin: 10% auto;
+}
+
+/* Estilos para cerrar el modal */
+.close-button {
+    background-color: #ccc;
+    color: #000;
+    border: none;
+    border-radius: 3px;
+    padding: 10px 15px;
+    margin-top: 10px;
+    cursor: pointer;
+}
+
+.close-button:hover {
+    background-color: #999;
+}
+
+
+
+
+
+
+
+
+
+
+
+/* En tu archivo CSS */
+.grid-stack {
+    background-color: #f0f0f0;
+    padding: 20px;
+}
+
+.grid-stack-item-content {
+    background-color: #ddd;
+    padding: 10px;
+    text-align: center;
+    border: 1px solid #999;
+}
+
+
+
+
+
+
+/*estilos formulario para insertar grafica*/
+
+#form-container{
+    text-align: center;
+    padding: 20px;
+    background-color: yellowgreen;
+
+}
+

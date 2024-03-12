@@ -1,0 +1,24 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>GridStack Django Layout</title>
+    <link rel="stylesheet" href="{% static 'css/gridstack.min.css' %}">
+    
+</head>
+<body>
+    <div class="grid-stack"></div>
+    <script src="{% static 'js/jquery.min.js' %}"></script>
+    <script src="{% static 'js/gridstack-poly.js' %}"></script>
+    <script src="{% static 'js/gridstack-all.js' %}"></script>
+
+    <script type="text/javascript">
+        $(function () {
+            var grid = GridStack.init();
+            grid.addWidget('<div><div class="grid-stack-item-content">Item 1</div></div>', {width: 4, height: 2});
+            grid.addWidget('<div><div class="grid-stack-item-content">Item 2</div></div>', {width: 4, height: 2});
+        });
+    </script>
+</body>
+</html>
