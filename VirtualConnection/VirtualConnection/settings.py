@@ -61,7 +61,12 @@ ROOT_URLCONF = 'VirtualConnection.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, 'templates')],
+        'DIRS': [
+            os.path.join(BASE_DIR, 'templates'),  # Directorio Principal
+            os.path.join(BASE_DIR, 'templates', 'Administrador'),# Directorio para vistas de administrador
+            os.path.join(BASE_DIR, 'templates', 'Usuarios'),# Directorio para vistas de usuario
+            os.path.join(BASE_DIR, 'templates', 'VistasPublicas'),# Directorio para VistasPublicas
+        ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [

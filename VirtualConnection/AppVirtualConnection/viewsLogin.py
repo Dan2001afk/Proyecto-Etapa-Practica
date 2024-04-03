@@ -58,7 +58,7 @@ def login_firebase(request):
             error_message = response.json().get('error', {}).get('message', 'Error de autenticación')
 
     # Retornamos al la vista del formulario y mostramos el error 
-    return render(request, 'login.html', {'error_message': error_message})
+    return render(request, 'Autenticacion/IniciarSesion.html', {'error_message': error_message})
 
 
 
@@ -93,7 +93,7 @@ def registro_usuario(request):
     else:
         form = RegistroForm()
 
-    return render(request, 'register.html', {'form': form})
+    return render(request, 'Autenticacion/Registro.html', {'form': form})
 
 
 
@@ -129,7 +129,7 @@ def reset_password_firebase(email):
         return {'success': False, 'error_message': f'Error al enviar el correo electrónico de restablecimiento de contraseña: {response.text}'}
 
 # Vista de Django para el restablecimiento de contraseña
-def reset_password_view(request):
+def Restablecer_Contraseña(request):
     if request.method == 'POST':
         email = request.POST.get('email', '')
 
@@ -139,4 +139,4 @@ def reset_password_view(request):
         # Devuelve una respuesta JSON
         return JsonResponse({'success': True, 'message': 'Solicitud de restablecimiento de contraseña exitosa. Verifica tu correo electrónico.'})
 
-    return render(request, 'reset_password.html')
+    return render(request, 'Autenticacion/Restablecer_Contraseña.html')

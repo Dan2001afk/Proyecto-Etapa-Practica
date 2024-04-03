@@ -116,19 +116,29 @@
     </div>
 </nav>
 
-<div id="form-container">
+<!-- <div id="form-container">
     <h2>Crear nueva gráfica</h2>
     <label for="chart-label">Etiqueta de la gráfica:</label>
     <input type="text" id="chart-label" required><br>
     <label for="chart-data">Datos de la gráfica (separados por comas):</label>
     <input type="text" id="chart-data" required><br>
     <button onclick="generarGrafica()">Generar Gráfica</button>
-  </div>
+  </div> -->
+
+
 
 
 <section class="home">
-    <div class="text">Dashboard</div>
+    <div class="text" id="ContenidoDas">Dashboard
+        <div class="modal fade" id="InsertarGraficas" role="dialog"></div>
+    </div>
     <div class="grid-stack"></div>
+
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_div }}
+        <button type="submit">Guardar</button>
+    </form>
 
 
     <!-- <div id="chartContainer" class="grid-stack-item-content" style="width: 100%; height: 100%;"></div> -->
