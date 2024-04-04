@@ -1,6 +1,8 @@
 from django.shortcuts import render, redirect
 from .forms import CultivoForm
 from .Cultivos import guardar_cultivo
+import requests
+
 
 #Plantillas Publicas
 
@@ -40,8 +42,14 @@ def Estadisticas(request):
     return render(request, 'Usuarios/Estadisticas.html')
 
 # plantillas de Autenticacion
+from django.shortcuts import render
+
+def reset_password_success(request):
+    return render(request, 'Autenticacion/Envio_Correo_Restablecer_Exitoso.html')
+
 def CerrarSesion(request):
     return render (request, "Autenticacion/CerrarSesion.html")
+
 
 #------------------------------------------------------PRUEBAS---------------------------------------------------------
 

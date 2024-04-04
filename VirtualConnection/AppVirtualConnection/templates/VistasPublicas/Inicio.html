@@ -38,17 +38,18 @@
                 <a href="news.html">Noticias</a>
             </li>
             <li>
-                <a href="contacts.html">Contacto</a>
+                <a href="/Contacto">Contacto</a>
             </li>
         </ul>
     </div>
 </nav><!-- End mobile main menu -->
-<div class="bff">
+
+<div class="bff" id="Inicio">
     <div class="container">
         <div class="row">
             <div class="col">
                 <div class="bff-container">
-                    <p>Virtual -<br class="d-sm-none"> Connection</p>
+                    <p >Virtual -<br class="d-sm-none"> Connection</p>
                     <div class="btn-group justify-content-center justify-content-md-start">
                         <a href="/IniciarSesion" class="btn btn-border btn-with-icon btn-small ripple">
                             <span>Iniciar sesion</span>
@@ -70,7 +71,7 @@
             <div class="row flex-nowrap align-items-center justify-content-between">
                 <div class="col-auto header-fixed-col logo-wrapper">
                     <a href="index.html" class="logo" title="PathSoft">
-                        <!-- <img src="{% static 'img/logo.svg' %}" width="115" height="36" alt="PathSoft"> -->
+                        <img src="{% static 'img/VirtualConnection.png' %}" width="115" height="36" alt="PathSoft">
                     </a>
                 </div>
                 <div class="col-auto col-xl col-static header-fixed-col d-none d-xl-block">
@@ -80,28 +81,28 @@
 <nav class="main-mnu">
     <ul class="main-mnu-list">
         <li>
-            <a href="index.html" data-title="Home">
+            <a href="#Inicio" data-title="Home">
                 <span>Inicio</span>
             </a>
         </li>
         <li>
-            <a href="about-us.html" data-title="About us">
-                <span>Sobre nosotros</span>
+            <a href="#Nosotross" data-title="About us">
+                <span>¿Con que lo Desarrollamos?</span>
             </a>
         </li>
         <li>
-            <a href="services.html" data-title="Services">
-                <span>Servicios</span>
+            <a href="#Famoso" data-title="Services">
+                <span>GitHub</span>
             </a>
         </li>
         <li>
-            <a href="news.html" data-title="News">
-                <span>Noticias</span>
-            </a>
-        </li>
-        <li>
-            <a href="contacts.html" data-title="Contacts">
+            <a href="#Contacto" data-title="News">
                 <span>Contacto</span>
+            </a>
+        </li>
+        <li>
+            <a href="#Noticias" data-title="Contacts">
+                <span>Noticias	</span>
             </a>
         </li>
     </ul>
@@ -125,6 +126,7 @@
 			<div class="section-bgc intro">
 				<!--arreglar esta etiqueta para que la imagen salga correctamente-->
 				<!-- <img src="{% static 'img/intro-img1.jpg' %}" class="intro-item intro-item-type-1" width="115" height="36" alt="PathSoft"> -->
+				<br>
 					<div class="container">
 						<div class="row">
 							<div class="col">
@@ -161,55 +163,58 @@
 				</div>
 			</div>
 
-			<section class="section">
-				<div class="container">
+			<section class="section" id="Nosotross">
+				<div class="container" >
 					<div class="row">
 						<header class="col-12">
-							<div class="section-heading heading-center">
-								<div class="section-subheading">Areas a las que servimos</div>
-								<h2>Nuestros Servicios</h2>
+							<div  class="section-heading heading-center">
+								<!-- <div class="section-subheading">Areas a las que servimos</div> -->
+								<h2>Lenguajes y Framework utilizados</h2>
 							</div>
 						</header>
 						<div class="col-lg-4 col-md-6 col-12 item">
 							<a href="#!" class="iitem item-style iitem-hover">
 								<div class="iitem-icon">
-									<i class="material-icons material-icons-outlined md-48">corporate_fare</i>
+									<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--!Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path d="M0 32v448h448V32H0zm243.8 349.4c0 43.6-25.6 63.5-62.9 63.5-33.7 0-53.2-17.4-63.2-38.5l34.3-20.7c6.6 11.7 12.6 21.6 27.1 21.6 13.8 0 22.6-5.4 22.6-26.5V237.7h42.1v143.7zm99.6 63.5c-39.1 0-64.4-18.6-76.7-43l34.3-19.8c9 14.7 20.8 25.6 41.5 25.6 17.4 0 28.6-8.7 28.6-20.8 0-14.4-11.4-19.5-30.7-28l-10.5-4.5c-30.4-12.9-50.5-29.2-50.5-63.5 0-31.6 24.1-55.6 61.6-55.6 26.8 0 46 9.3 59.8 33.7L368 290c-7.2-12.9-15-18-27.1-18-12.3 0-20.1 7.8-20.1 18 0 12.6 7.8 17.7 25.9 25.6l10.5 4.5c35.8 15.3 55.9 31 55.9 66.2 0 37.8-29.8 58.6-69.7 58.6z"/></svg>
 								</div>
 								<div class="iitem-icon-bg">
-									<i class="material-icons material-icons-outlined">corporate_fare</i>
+									<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--!Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path d="M160 144c-35.3 0-64-28.7-64-64s28.7-64 64-64c15.7 0 30 5.6 41.2 15C212.4 12.4 232.7 0 256 0s43.6 12.4 54.8 31C322 21.6 336.3 16 352 16c35.3 0 64 28.7 64 64s-28.7 64-64 64c-14.7 0-28.3-5-39.1-13.3l-32 48C275.3 187 266 192 256 192s-19.3-5-24.9-13.3l-32-48C188.3 139 174.7 144 160 144zM144 352l48.4-24.2c10.2-5.1 21.6-7.8 33-7.8c19.6 0 38.4 7.8 52.2 21.6l32.5 32.5c6.3 6.3 14.9 9.9 23.8 9.9c11.3 0 21.8-5.6 28-15l9.7-14.6-58.9-66.3c-9.1-10.2-22.2-16.1-35.9-16.1H235.1c-13.7 0-26.8 5.9-35.9 16.1l-59.9 67.4L144 352zm19.4-95.8c18.2-20.5 44.3-32.2 71.8-32.2h41.8c27.4 0 53.5 11.7 71.8 32.2l150.2 169c8.5 9.5 13.2 21.9 13.2 34.7c0 28.8-23.4 52.2-52.2 52.2H52.2C23.4 512 0 488.6 0 459.8c0-12.8 4.7-25.1 13.2-34.7l150.2-169z"/></svg>
 								</div>
-								<h3 class="iitem-heading item-heading-large">Corporate Solution</h3>
-								<div class="iitem-desc">Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old.</div>
+								<h3 class="iitem-heading item-heading-large">JavaScript</h3>
+
+								<!-- texto para el contenedor  -->
+								<div class="iitem-desc">Es un lenguaje de programación de alto nivel, interpretado y orientado a objetos utilizado principalmente en el desarrollo web. Es el lenguaje de programación principal que se ejecuta en los navegadores web y permite agregar interactividad y funcionalidades dinámicas a las páginas web</div>
 							</a>
 						</div>
 						<div class="col-lg-4 col-md-6 col-12 item">
 							<a href="#!" class="iitem item-style iitem-hover">
 								<div class="iitem-icon">
-									<i class="material-icons material-icons-outlined md-48">support_agent</i>
+									<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--!Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path d="M439.8 200.5c-7.7-30.9-22.3-54.2-53.4-54.2h-40.1v47.4c0 36.8-31.2 67.8-66.8 67.8H172.7c-29.2 0-53.4 25-53.4 54.3v101.8c0 29 25.2 46 53.4 54.3 33.8 9.9 66.3 11.7 106.8 0 26.9-7.8 53.4-23.5 53.4-54.3v-40.7H226.2v-13.6h160.2c31.1 0 42.6-21.7 53.4-54.2 11.2-33.5 10.7-65.7 0-108.6zM286.2 404c11.1 0 20.1 9.1 20.1 20.3 0 11.3-9 20.4-20.1 20.4-11 0-20.1-9.2-20.1-20.4 .1-11.3 9.1-20.3 20.1-20.3zM167.8 248.1h106.8c29.7 0 53.4-24.5 53.4-54.3V91.9c0-29-24.4-50.7-53.4-55.6-35.8-5.9-74.7-5.6-106.8 .1-45.2 8-53.4 24.7-53.4 55.6v40.7h106.9v13.6h-147c-31.1 0-58.3 18.7-66.8 54.2-9.8 40.7-10.2 66.1 0 108.6 7.6 31.6 25.7 54.2 56.8 54.2H101v-48.8c0-35.3 30.5-66.4 66.8-66.4zm-6.7-142.6c-11.1 0-20.1-9.1-20.1-20.3 .1-11.3 9-20.4 20.1-20.4 11 0 20.1 9.2 20.1 20.4s-9 20.3-20.1 20.3z"/></svg>
 								</div>
 								<div class="iitem-icon-bg">
-									<i class="material-icons material-icons-outlined">support_agent</i>
+									<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--!Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path d="M439.8 200.5c-7.7-30.9-22.3-54.2-53.4-54.2h-40.1v47.4c0 36.8-31.2 67.8-66.8 67.8H172.7c-29.2 0-53.4 25-53.4 54.3v101.8c0 29 25.2 46 53.4 54.3 33.8 9.9 66.3 11.7 106.8 0 26.9-7.8 53.4-23.5 53.4-54.3v-40.7H226.2v-13.6h160.2c31.1 0 42.6-21.7 53.4-54.2 11.2-33.5 10.7-65.7 0-108.6zM286.2 404c11.1 0 20.1 9.1 20.1 20.3 0 11.3-9 20.4-20.1 20.4-11 0-20.1-9.2-20.1-20.4 .1-11.3 9.1-20.3 20.1-20.3zM167.8 248.1h106.8c29.7 0 53.4-24.5 53.4-54.3V91.9c0-29-24.4-50.7-53.4-55.6-35.8-5.9-74.7-5.6-106.8 .1-45.2 8-53.4 24.7-53.4 55.6v40.7h106.9v13.6h-147c-31.1 0-58.3 18.7-66.8 54.2-9.8 40.7-10.2 66.1 0 108.6 7.6 31.6 25.7 54.2 56.8 54.2H101v-48.8c0-35.3 30.5-66.4 66.8-66.4zm-6.7-142.6c-11.1 0-20.1-9.1-20.1-20.3 .1-11.3 9-20.4 20.1-20.4 11 0 20.1 9.2 20.1 20.4s-9 20.3-20.1 20.3z"/></svg>
 								</div>
-								<h3 class="iitem-heading item-heading-large">Call Center Solutions</h3>
-								<div class="iitem-desc">Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it.</div>
+								<h3 class="iitem-heading item-heading-large">Python</h3>
+								<!-- texto para el contenedor -->
+								<div class="iitem-desc">Es conocido por su sintaxis limpia y legible, lo que lo hace ideal para el desarrollo rápido de aplicaciones y la prototipación. Python es versátil y se puede utilizar para una amplia gama de aplicaciones, desde desarrollo web hasta análisis de datos y aprendizaje automático.</div>
 							</a>
 						</div>
 						<div class="col-lg-4 col-md-12 col-12 item">
 							<a href="#!" class="iitem item-style iitem-hover">
 								<div class="iitem-icon">
-									<i class="material-icons material-icons-outlined md-48">cloud_download</i>
+									<img width="48" height="48" src="https://img.icons8.com/material-outlined/24/django.png" alt="django"/>
 								</div>
 								<div class="iitem-icon-bg">
-									<i class="material-icons material-icons-outlined">cloud_download</i>
+									<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--!Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path d="M233.4 105.4c12.5-12.5 32.8-12.5 45.3 0l192 192c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L256 173.3 86.6 342.6c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3l192-192z"/></svg>
 								</div>
-								<h3 class="iitem-heading item-heading-large">Cloud Development</h3>
-								<div class="iitem-desc">There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words.</div>
+								<h3 class="iitem-heading item-heading-large">Django</h3>
+								<div class="iitem-desc">Es un framework de desarrollo web de alto nivel basado en Python que fomenta el desarrollo rápido y el diseño limpio y pragmático. Proporciona un conjunto de herramientas y patrones para facilitar la creación de aplicaciones web complejas y seguras.</div>
 							</a>
 						</div>
 						<div class="section-footer col-12 section-footer-animate">
 							<div class="btn-group align-items-center justify-content-center">
 								<a href="#!" class="btn btn-with-icon btn-w240 ripple">
-									<span>See All Services</span>
+									<span> Leer mas...</span>
 									<svg class="btn-icon-right" viewBox="0 0 13 9" width="13" height="9"><use xlink:href="{% static 'img/sprite.svg#arrow-right' %}"></use></svg>
 								</a>
 							</div>
@@ -218,220 +223,126 @@
 				</div>
 			</section>
 
-			<section class="section section-bgc">
-				<div class="container">
-					<div class="row litems">
+			<section id="Famoso" class="section section-bgc">
 						<header class="col-12">
 							<div class="section-heading heading-center">
-								<div class="section-subheading">some reasons</div>
-								<h2>Why Choose Us</h2>
+								<h2>Lenguajes mas famosos de GITHUB</h2>
 							</div> 
 						</header>
-						<div class="col-lg-4 col-md-6 col-12 litem">
-							<div class="ini">
-								<div class="ini-count">01</div>
-								<div class="ini-info">
-									<h3 class="ini-heading item-heading-large">High Quality <br> Hardware</h3>
-									<div class="ini-desc">
-										<p>We use top-notch hardware to develop the most efficient apps for our customers</p>
-									</div>
-								</div>
-							</div>
-						</div>
-						<div class="col-lg-4 col-md-6 col-12 litem">
-							<div class="ini">
-								<div class="ini-count">02</div>
-								<div class="ini-info">
-									<h3 class="ini-heading item-heading-large">Dedicated 24\7 <br> Support</h3>
-									<div class="ini-desc">
-										<p>You can rely on our 24/7 tech support that will gladly solve any app issue you may have.</p>
-									</div>
-								</div>
-							</div>
-						</div>
-						<div class="col-lg-4 col-md-6 col-12 litem">
-							<div class="ini">
-								<div class="ini-count">03</div>
-								<div class="ini-info">
-									<h3 class="ini-heading item-heading-large">30-Day Money-back Guarantee</h3>
-									<div class="ini-desc">
-										<p>If you are not satisfied with our apps, we will return your money in the first 30 days.</p>
-									</div>
-								</div>
-							</div>
-						</div>
-						<div class="col-lg-4 col-md-6 col-12 litem">
-							<div class="ini">
-								<div class="ini-count">04</div>
-								<div class="ini-info">
-									<h3 class="ini-heading item-heading-large">Agile and Fast <br> Working Style</h3>
-									<div class="ini-desc">
-										<p>This type of approach to our work helps our specialists to quickly develop better apps.</p>
-									</div>
-								</div>
-							</div>
-						</div>
-						<div class="col-lg-4 col-md-6 col-12 litem">
-							<div class="ini">
-								<div class="ini-count">05</div>
-								<div class="ini-info">
-									<h3 class="ini-heading item-heading-large">Some Apps <br> are Free</h3>
-									<div class="ini-desc">
-										<p>We also develop free apps that can be downloaded online without any payments.</p>
-									</div>
-								</div>
-							</div>
-						</div>
-						<div class="col-lg-4 col-md-6 col-12 litem">
-							<div class="ini">
-								<div class="ini-count">06</div>
-								<div class="ini-info">
-									<h3 class="ini-heading item-heading-large">High Level <br> of Usability</h3>
-									<div class="ini-desc">
-										<p>All our products have high usability allowing users to easily operate the apps.</p>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
+
+						
+						
+						<table>
+							<tr>
+								<th>Lenguaje</th>
+								<th>Cantidad de Repositorios</th>
+							</tr>
+							{% for lenguaje, cantidad in lenguajes.items %}
+							<tr>
+								<td>{{ lenguaje }}</td>
+								<td>{{ cantidad }}</td>
+							</tr>
+							{% endfor %}
+						</table>
+
 			</section>
 
-			<section class="section section-without-padding-bottom">
-				<div class="container">
-					<div class="row items spincrement-container">
-						<div class="col-xl-3 col-md-6 col-12 item">
-							<div class="counter-min">
-								<div class="counter-min-block">
-									<div class="counter-min-ico">
-										<i class="material-icons material-icons-outlined md-36">history</i>
-									</div>
-									<div class="counter-min-numb spincrement" data-from="0" data-to="10">0</div>
-								</div>
-								<div class="counter-min-info">
-									<h4 class="counter-min-heading">Years Of Experience</h4>
-								</div>
-							</div>
-						</div>
-						<div class="col-xl-3 col-md-6 col-12 item">
-							<div class="counter-min">
-								<div class="counter-min-block">
-									<div class="counter-min-ico">
-										<i class="material-icons material-icons-outlined md-36">chat</i>
-									</div>
-									<div class="counter-min-numb spincrement" data-from="0" data-to="40">0</div>
-								</div>
-								<div class="counter-min-info">
-									<h4 class="counter-min-heading">Consultans</h4>
-								</div>
-							</div>
-						</div>
-						<div class="col-xl-3 col-md-6 col-12 item">
-							<div class="counter-min">
-								<div class="counter-min-block">
-									<div class="counter-min-ico">
-										<i class="material-icons material-icons-outlined md-36">assignment_ind</i>
-									</div>
-									<div class="counter-min-numb spincrement" data-from="0" data-to="160">0</div>
-								</div>
-								<div class="counter-min-info">
-									<h4 class="counter-min-heading">Employers</h4>
-								</div>
-							</div>
-						</div>
-						<div class="col-xl-3 col-md-6 col-12 item">
-							<div class="counter-min">
-								<div class="counter-min-block">
-									<div class="counter-min-ico">
-										<i class="material-icons material-icons-outlined md-36">phonelink_setup</i>
-									</div>
-									<div class="counter-min-numb"><span class="spincrement" data-from="0" data-to="2">0</span>K</div>
-								</div>
-								<div class="counter-min-info">
-									<h4 class="counter-min-heading">Apps Developed</h4>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</section>
-
-			<section class="section">
+			<section id="Contacto" class="section">
 				<div class="container">
 					<div class="row">
 						<header class="col-12">
 							<div class="section-heading heading-center">
-								<div class="section-subheading">Reviews from our clients</div>
-								<h2>What People Say</h2>
+								<h2>Contacto</h2>
 							</div> 
 						</header>
 						<div class="col-lg-4 col-md-6 col-12 item">
 							<div class="reviews-item item-style">
 								<div class="reviews-item-header">
 									<div class="reviews-item-img">
-										<img data-src="{% static 'img/auth-img-1.jpg' %}" class="img-cover lazy" src="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=" alt="">
+										<img data-src="{% static 'img/Daniel Gonzalez.jpg' %}" class="img-cover lazy" src="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=" alt="">
 									</div>
 									<div class="reviews-item-info">
-										<h4 class="reviews-item-name item-heading">Catherine Williams</h4>
-										<div class="reviews-item-position">Regular client</div>
+										<h4 class="reviews-item-name item-heading">Daniel Camilo Gonzalez Funeme</h4>
+										<div class="reviews-item-position">Desarrollador</div>
 									</div>
 								</div>
 								<div class="reviews-item-text">
-									<p>PathSoft offers a high caliber of resources skilled in Microsoft Azure.NET, mobile and Quality Assurance. They became our true business partners over the past three years.</p>
+									<p>¡Hola! Soy Daniel Camilo González , tengo 23 años y soy el desarrollador del proyecto VirtualConnection. Como graduado del Servicio Nacional de Aprendizaje (SENA) en un tecnólogo, he adquirido habilidades y experiencia en el desarrollo de soluciones tecnológicas innovadoras. VirtualConnection es un proyecto que diseñé para visualizar datos de cultivos, utilizando sensores para recopilar información importante. Mi pasión por la tecnología y mi dedicación al desarrollo de soluciones efectivas me han llevado a crear este proyecto, con el objetivo de mejorar la eficiencia y la productividad en la agricultura moderna. Estoy emocionado de compartir mi experiencia y conocimientos en este campo y seguir explorando nuevas oportunidades en el mundo de la tecnología.</p>
 								</div>
 							</div>
 						</div>
+
+						<div class="col-lg-4 col-md-12 col-12 item">
+							<div class="reviews-item item-style">
+								<div class="reviews-item-header">
+									<!-- <div class="reviews-item-img">
+										 <img data-src="{% static '/img/auth-img-3.jpg' %}" class="img-cover lazy" src="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=" alt="">
+									</div>  -->
+									<div class="reviews-item-info">
+										<h5>Medios de Contacto</h5>
+										<h4 class="reviews-item-name item-heading">Facebook</h4>
+										<div class="reviews-item-img">
+											<a href="https://www.facebook.com/danielcamilo.gonzalezfuneme/">
+												<img src="{% static 'img/Facebook.svg' %}" alt="Facebook">
+											</a>
+										</div>
+										<br>
+
+										<h4 class="reviews-item-name item-heading">Instagram</h4>
+										<div class="reviews-item-img">
+										<a href="https://www.instagram.com/daniel_camilo_gonzale2001?igsh=ZW5jcTAxdTB1ZGg2&utm_source=qr">
+											<img src="{% static 'img/Instagram.svg' %}" alt="">
+										</a>
+										</div>
+										<br>
+
+										<h4 class="reviews-item-name item-heading">Whatsapp</h4>
+										<div class="reviews-item-img">
+											<a href="https://wa.me/573118397632">
+												<img src="{% static 'img/Whatsapp.svg' %}" alt="Facebook">
+											</a>
+										</div>
+										<br>
+
+										<h4 class="reviews-item-name item-heading">Correo Electronico</h4>
+										<div class="reviews-item-img">
+											<a href="mailto:camolo.777@gmail.com">
+												<img src="{% static 'img/Email.svg' %}" alt="Facebook">
+											</a>
+										</div>
+
+									</div>
+								</div>
+							</div>
+						</div>
+
 						<div class="col-lg-4 col-md-6 col-12 item">
 							<div class="reviews-item item-style">
 								<div class="reviews-item-header">
 									<div class="reviews-item-img">
-										<img data-src="{% static 'img/auth-img-2.jpg' %}" class="img-cover lazy" src="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=" alt="">
+										<img data-src="{% static 'img/sena.png' %}" class="img-cover lazy" src="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=" alt="">
 									</div>
 									<div class="reviews-item-info">
-										<h4 class="reviews-item-name item-heading">Rupert Wood</h4>
-										<div class="reviews-item-position">Regular client</div>
+										<h4 class="reviews-item-name item-heading">Centro de Biotecnologia Agropecuario Mosquera</h4>
 									</div>
 								</div>
 								<div class="reviews-item-text">
-									<p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Suscipit consequuntur sequi eos beatae deleniti culpa cupiditate rerum. Similique, blanditiis rem perspiciatis fugiat voluptatem quas officiis ducimus reprehenderit.</p>
+									<p>VirtualConnection, una solución tecnológica creada para potenciar la eficiencia y el aprendizaje en el Servicio Nacional de Aprendizaje (SENA). Este software innovador ha sido diseñado para proporcionar a estudiantes y profesionales del SENA una herramienta robusta y versátil para la visualización y análisis de datos de cultivos. VirtualConnection utiliza tecnología de sensores para recopilar datos precisos y relevantes, ofreciendo a los usuarios una visión detallada del rendimiento de los cultivos y facilitando la toma de decisiones informadas. Con esta plataforma, esperamos promover el avance tecnológico en el ámbito agrícola y contribuir al desarrollo continuo de la educación y la formación profesional en el SENA.</p>
 								</div>
 							</div>
 						</div>
-						<div class="col-lg-4 col-md-12 col-12 item">
-							<div class="reviews-item item-style">
-								<div class="reviews-item-header">
-									<div class="reviews-item-img">
-										<img data-src="{% static '/img/auth-img-3.jpg' %}" class="img-cover lazy" src="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=" alt="">
-									</div>
-									<div class="reviews-item-info">
-										<h4 class="reviews-item-name item-heading">Samantha Brown</h4>
-										<div class="reviews-item-position">Regular client</div>
-									</div>
-								</div>
-								<div class="reviews-item-text">
-									<p>We sincerely hope that each and every user entering our website will find exactly. With advanced features of activating account and new login widgets, you will definitely have a great experience of using our web page.</p>
-								</div>
-							</div>
-						</div>
-						<footer class="section-footer col-12 section-footer-animate">
-							<div class="btn-group align-items-center justify-content-center">
-								<a href="#!" class="btn btn-with-icon btn-w240 ripple">
-									<span>See All Reviews</span>
-									<svg class="btn-icon-right" viewBox="0 0 13 9" width="13" height="9"><use xlink:href="{% static 'img/sprite.svg#arrow-right' %}"></use></svg>
-								</a>
-							</div>
-						</footer>
+	
 					</div>
 				</div>
 			</section>
 
-			<section class="section section-bgc">
+			<section id="Noticias" class="section section-bgc">
 				<div class="container">
 					<div class="row items">
 						<header class="col-12">
 							<div class="section-heading heading-center">
-								<div class="section-subheading">More info about</div>
-								<h2>Latest News</h2>
+								<div class="section-subheading">Mas Informacion sobre</div>
+								<h2>Virtual-Connection</h2>
 							</div> 
 						</header>
 						<div class="col-lg-4 col-md-6 col-12 item">
@@ -496,58 +407,17 @@
 
 		</div>
 
-		<div class="bff">
-    <div class="container">
-        <div class="row">
-            <div class="col">
-                <div class="bff-container">
-                    <p>Get Full-Featured <br class="d-sm-none"> PathSoft Template</p>
-                    <div class="btn-group justify-content-center justify-content-md-start">
-                        <a href="https://www.templatemonster.com/website-templates/pathsoft-it-solutions-for-your-business-services-website-template-83414.html?utm_campaign=blog_site_KovalWeb&utm_source=KovalWeb&utm_medium=referral&aff=KovalWeb" class="btn btn-border btn-with-icon btn-small ripple">
-                            <span>HTML5</span>
-                            <svg class="btn-icon-right" viewBox="0 0 13 9" width="13" height="9"><use xlink:href="{% static 'img/sprite.svg#arrow-right' %}"></use></svg>
-                        </a>
-                        <a href="https://www.templatemonster.com/wordpress-themes/pathsoft-it-solutions-for-your-business-services-wordpress-theme-99496.html?utm_campaign=blog_site_KovalWeb&utm_source=KovalWeb&utm_medium=referral&aff=KovalWeb" class="btn btn-border btn-with-icon btn-small ripple">
-                            <span>WordPress</span>
-                            <svg class="btn-icon-right" viewBox="0 0 13 9" width="13" height="9"><use xlink:href="{% static 'img/sprite.svg#arrow-right' %}"></use></svg>
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
+
 
 <!-- Begin footer -->
 <footer class="footer footer-minimal">
-    <div class="footer-main">
-        <div class="container">
-            <div class="row items align-items-center">
-                <div class="col-lg-3 col-md-4 col-12 item">
-                    <div class="widget-brand-info">
-                        <div class="widget-brand-info-main">
-                            <a href="index.html" class="logo" title="PathSoft">
-                                <img data-src="{% static 'img/logo-white.svg' %}" class="lazy" width="133" height="36" src="{% static 'img/logo-white.svg' %}" alt="PathSoft" data-loaded="true" style="opacity: 1;">
-                            </a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md item">
-                    <div class="footer-item">
-                        <nav class="footer-nav">
-                            <ul class="footer-mnu footer-mnu-line">
-                                <li><a href="#!" class="hover-link" data-title="Home"><span>Inicio</span></a></li>
-                                <li><a href="#!" class="hover-link" data-title="About us"><span>Sobre Nosotros</span></a></li>
-                                <li><a href="#!" class="hover-link" data-title="Services"><span>Servicios</span></a></li>
-                                <li><a href="#!" class="hover-link" data-title="News"><span>Noticias</span></a></li>
-                                <li><a href="#!" class="hover-link" data-title="Contacts"><span>Contacto</span></a></li>
-                            </ul>
-                        </nav>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+	<div class="row items align-items-center">
+		<div class="col-lg-3 col-md-4 col-12 item">
+			<div class="widget-brand-info">
+			</div>
+		</div>
+
+	</div>
     <div class="footer-bottom">
         <div class="container">
             <div class="row justify-content-between items">
@@ -557,15 +427,18 @@
                             <li><a href="terms-and-conditions.html">Terms and Conditions</a></li>
                             <li><a href="privacy-policy.html">Privacy Policy</a></li>
                         </ul>
-                    </nav>
+                    </nav> 
                 </div>
                 <div class="col-md-auto col-12 item">
-                    <div class="copyright">© 2022 psFree. All rights reserved.</div>
+                    <div class="copyright">© 2024 All rights reserved.</div>
                 </div>
             </div>
         </div>
     </div>
 </footer><!-- End footer -->
+
+
+
 
 	</main><!-- End main -->
 
@@ -576,5 +449,7 @@
 <script src="{% static 'libs/pristine/pristine.min.js' %}"></script>
 <script src="{% static 'js/custom.js' %}"></script>
 <script src="{% static 'js/forms.js' %}"></script>
+
+
 	
 </body></html>

@@ -136,7 +136,7 @@ def Restablecer_Contraseña(request):
         # Llama a la función para restablecer la contraseña en Firebase
         reset_password_firebase(email)
 
-        # Devuelve una respuesta JSON
-        return JsonResponse({'success': True, 'message': 'Solicitud de restablecimiento de contraseña exitosa. Verifica tu correo electrónico.'})
+        # Redirige al usuario a la página de éxito
+        return redirect('reset_password_success')  # Asegúrate de tener la URL adecuada en tus archivos de urls.py
 
     return render(request, 'Autenticacion/Restablecer_Contraseña.html')

@@ -2899,12 +2899,17 @@ body.mmm-open .mmm {
     padding: 1rem 0;
 }
 
+/*Animacion en el header*/
+
 .main-mnu-list > li:hover > a > span, .main-mnu-list > li.active > a > span {
-    transform: translateY(100%);
+    transform: translateY(10%);
+    color: #0065D1;
+    
 }
 
-.main-mnu-list > li:hover > a::after, .main-mnu-list > li.active > a::after {
+.main-list > li:hover > a::after, .main-mnu-list > li.active > a::after {
     transform: none;
+
 }
 
 .main-mnu-list > li > a {

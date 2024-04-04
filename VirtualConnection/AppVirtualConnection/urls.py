@@ -25,7 +25,9 @@ urlpatterns=[
         # Vistas Autenticacion
         path('IniciarSesion/', viewsLogin.login_firebase, name='login'),
         path('RegistrarUsuarios/', viewsLogin.registro_usuario, name='Registro'),
+        path('reset_password_success/', reset_password_success, name='reset_password_success'),
         path('reset-password/', Restablecer_Contraseña, name='Reset-passwordPage'),
         path('CerrarSesion/', Inicio, name='panel1'),
+        
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT) 
