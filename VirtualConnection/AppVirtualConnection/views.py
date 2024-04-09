@@ -43,9 +43,9 @@ def Tableros(request):
 def Productos(request):
     return render (request, "Usuarios/Productos.html")
 
-@login_required
-def Dispositivos(request):
-    return render(request, 'Usuarios/Dispositivos.html')
+# @login_required
+# def Dispositivos(request):
+#     return render(request, 'Usuarios/Dispositivos.html')
 
 
 @login_required
@@ -92,3 +92,31 @@ def Dashboard(request):
         form = CultivoForm()
         
     return render(request, 'Usuarios/Dashboard.html', {'form': form})
+
+
+
+
+from django.shortcuts import render
+from .forms import CultivoForm
+from firebase_admin import firestore
+
+def Dispositivos(request):
+    db = firestore.client()
+    cultivos_ref = db.collection('Cultivos')
+    cultivos_docs = cultivos_ref.get()
+
+    cultivos_data = []
+    for cultivo in cultivos_docs:
+        cultivo_data = cultivo.to_dict()
+        cultivos_data.append(cultivo_data)
+
+    if request.method == 'POST':
+        form = CultivoForm(request.POST)
+        if form.is_valid():
+            # Procesar el formulario si es válido
+          # Aquí puedes agregar lógica adicional según tus necesidades
+            return render(request, 'Usuarios/Dashboard.html')
+    else:
+        form = CultivoForm(cultivos=cultivos_data)  # Pasa los datos de cultivos al formulario
+
+    return render(request, 'Usuarios/Dispositivos.html', {'form': form, 'cultivos': cultivos_data})

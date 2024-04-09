@@ -118,7 +118,12 @@
 <section class="home">
     <div class="text">Dispositivos</div>
 
-
+    <h2>Cultivos Registrados:</h2>
+    <ul>
+        {% for cultivo in cultivos %}
+            <li>{{ cultivo.nombre }} - {{ cultivo.ubicacion }} - {{ cultivo.variedad }} - Temperatura: {{ cultivo.Temperatura_suelo }}, Humedad: {{ cultivo.Humedad }}</li>
+        {% endfor %}
+    </ul>
 
 
 </section>

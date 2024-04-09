@@ -13,6 +13,7 @@
 	<link rel="preload" href="{% static 'fonts/montserrat-v25-latin/montserrat-v25-latin-600.woff2' %}" as="font" type="font/woff2" crossorigin>
 	<link rel="preload" href="{% static 'fonts/material-icons/material-icons.woff2' %}" as="font" type="font/woff2" crossorigin>
 	<link rel="preload" href="{% static 'fonts/material-icons/material-icons-outlined.woff2' %}" as="font" type="font/woff2" crossorigin>
+	<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 	<title>Inicio</title>
 </head>
 <body>
@@ -123,6 +124,7 @@
     </nav>
 </header>
 
+
 			<div class="section-bgc intro">
 				<!--arreglar esta etiqueta para que la imagen salga correctamente-->
 				<!-- <img src="{% static 'img/intro-img1.jpg' %}" class="intro-item intro-item-type-1" width="115" height="36" alt="PathSoft"> -->
@@ -226,25 +228,124 @@
 			<section id="Famoso" class="section section-bgc">
 						<header class="col-12">
 							<div class="section-heading heading-center">
-								<h2>Lenguajes mas famosos de GITHUB</h2>
 							</div> 
 						</header>
-
+						</head>
+						<body>
+						  <div class="container">
+							<h1 class="TituloGraficas">Galería de Gráficas</h1>
+							<div class="gallery">
+							  <div class="chart-container">
+								<div class="chart-title" id="titulo2">Gráfico de Línea</div>
+								<canvas id="line-chart" width="50" height="50"></canvas>
+							  </div>
+							  <div class="chart-container" id="titulo3">
+								<div class="chart-title">Gráfico de Barras</div>
+								<canvas id="bar-chart" width="50" height="50"></canvas>
+							  </div>
+							  <div class="chart-container">
+								<div class="chart-title" id="titulo4">Gráfico de Pastel</div>
+								<canvas id="pie-chart" width="50" height="50"></canvas>
+							  </div>
+							</div>
+						  </div>
 						
+						  <!-- Include Chart.js -->
+						  
 						
-						<table>
-							<tr>
-								<th>Lenguaje</th>
-								<th>Cantidad de Repositorios</th>
-							</tr>
-							{% for lenguaje, cantidad in lenguajes.items %}
-							<tr>
-								<td>{{ lenguaje }}</td>
-								<td>{{ cantidad }}</td>
-							</tr>
-							{% endfor %}
-						</table>
-
+						  <script>
+							// Datos para los gráficos
+							var lineChartData = {
+							  labels: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo'],
+							  datasets: [{
+								label: 'Ventas',
+								data: [50, 60, 70, 65, 80],
+								backgroundColor: 'rgba(255, 99, 132, 0.2)',
+								borderColor: 'rgba(255, 99, 132, 1)',
+								borderWidth: 1
+							  }]
+							};
+						
+							var barChartData = {
+							  labels: ['Producto A', 'Producto B', 'Producto C', 'Producto D', 'Producto E'],
+							  datasets: [{
+								label: 'Ventas',
+								data: [100, 150, 120, 180, 90],
+								backgroundColor: 'rgba(54, 162, 235, 0.2)',
+								borderColor: 'rgba(54, 162, 235, 1)',
+								borderWidth: 1
+							  }]
+							};
+						
+							var pieChartData = {
+							  labels: ['Rojo', 'Verde', 'Azul'],
+							  datasets: [{
+								data: [30, 25, 45],
+								backgroundColor: ['rgba(255, 99, 132, 0.6)', 'rgba(75, 192, 192, 0.6)', 'rgba(54, 162, 235, 0.6)'],
+								hoverBackgroundColor: ['rgba(255, 99, 132, 0.8)', 'rgba(75, 192, 192, 0.8)', 'rgba(54, 162, 235, 0.8)'],
+								borderWidth: 1
+							  }]
+							};
+						
+							// Configuración de los gráficos
+							var lineChartOptions = {
+							  responsive: true,
+							  scales: {
+								yAxes: [{
+								  ticks: {
+									beginAtZero: true
+								  }
+								}]
+							  }
+							};
+						
+							var barChartOptions = {
+							  responsive: true,
+							  scales: {
+								yAxes: [{
+								  ticks: {
+									beginAtZero: true
+								  }
+								}]
+							  }
+							};
+						
+							var pieChartOptions = {
+							  responsive: true,
+							  tooltips: {
+								callbacks: {
+								  label: function(tooltipItem, data) {
+									var dataset = data.datasets[tooltipItem.datasetIndex];
+									var total = dataset.data.reduce((previousValue, currentValue, currentIndex, array) => {
+									  return previousValue + currentValue;
+									});
+									var currentValue = dataset.data[tooltipItem.index];
+									var percentage = Math.floor(((currentValue / total) * 100) + 0.5);
+									return percentage + '%';
+								  }
+								}
+							  }
+							};
+						
+							// Crear gráficos
+							var lineChart = new Chart(document.getElementById('line-chart'), {
+							  type: 'line',
+							  data: lineChartData,
+							  options: lineChartOptions
+							});
+						
+							var barChart = new Chart(document.getElementById('bar-chart'), {
+							  type: 'bar',
+							  data: barChartData,
+							  options: barChartOptions
+							});
+						
+							var pieChart = new Chart(document.getElementById('pie-chart'), {
+							  type: 'pie',
+							  data: pieChartData,
+							  options: pieChartOptions
+							});
+						  </script>
 			</section>
 
 			<section id="Contacto" class="section">
@@ -348,15 +449,14 @@
 						<div class="col-lg-4 col-md-6 col-12 item">
 							<article class="news-item item-style">
 								<a href="news-post.html" class="news-item-img el">
-									<img data-src="{% static 'img/news-img-1.jpg' %}" class="lazy" src="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=" alt="">
+									<img data-src="{% static 'img/Noticia Avance 1.png' %}" class="lazy" src="" alt="">
 								</a>
 								<div class="news-item-info">
-									<div class="news-item-date">07/01/2021</div>
 									<h3 class="news-item-heading item-heading">
-										<a href="news-post.html" title="Benefits Of Async/Await">Benefits Of Async/Await</a>
+										<a href="news-post.html" title="Nuestros Inicios">Nuestros Inicios</a>
 									</h3>
 									<div class="news-item-desc">
-										<p>Asynchronous functions are a good and bad thing in JavaScript.</p>
+										<p>De esta manera fue como empezamos a trabajar con gridstack desarrollando una interfaz agradable para nuestros usuarios</p>
 									</div>
 								</div>
 							</article>
@@ -364,15 +464,14 @@
 						<div class="col-lg-4 col-md-6 col-12 item">
 							<article class="news-item item-style">
 								<a href="news-post.html" class="news-item-img el">
-									<img data-src="{% static 'img/news-img-2.jpg' %}" class="lazy" src="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=" alt="">
+									<img data-src="{% static 'img/Noticia Avance 2.png' %}" class="lazy" src="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=" alt="">
 								</a>
 								<div class="news-item-info">
-									<div class="news-item-date">05/01/2021</div>
 									<h3 class="news-item-heading item-heading">
-										<a href="news-post.html" title="Key Considerations Of IPaaS">Key Considerations Of IPaaS</a>
+										<a href="news-post.html" title="Las Primeras Graficas">Las Primeras Graficas</a>
 									</h3>
 									<div class="news-item-desc">
-										<p>Digital transformation requires cloud appropriate adoption</p>
+										<p>Fue de esta manera como se empezo a ver el avance de nuestras graficas</p>
 									</div>
 								</div>
 							</article>
@@ -380,15 +479,14 @@
 						<div class="col-lg-4 col-md-6 col-12 item">
 							<article class="news-item item-style">
 								<a href="news-post.html" class="news-item-img el">
-									<img data-src="{% static 'img/news-img-3.jpg' %}" class="lazy" src="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=" alt="">
+									<img data-src="{% static 'img/Noticia Avance 3.png' %}" class="lazy" src="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=" alt="">
 								</a>
 								<div class="news-item-info">
-									<div class="news-item-date">01/01/2021</div>
 									<h3 class="news-item-heading item-heading">
-										<a href="news-post.html" title="Hibernate Query Language">Hibernate Query Language</a>
+										<a href="news-post.html" title="Modales experiencia a otro nivel">Modales experiencia a otro nivel</a>
 									</h3>
 									<div class="news-item-desc">
-										<p>In this tutorial, we will discuss the Hibernate Query Language. </p>
+										<p>Configuracion de los modales para una mejor experiencia a la hora de usar nuestro software</p>
 									</div>
 								</div>
 							</article>
@@ -396,7 +494,7 @@
 						<footer class="section-footer col-12 item section-footer-animate">
 							<div class="btn-group align-items-center justify-content-center">
 								<a href="news.html" class="btn btn-with-icon btn-w240 ripple">
-									<span>See All News</span>
+									<span>Leer mas Noticias...</span>
 									<svg class="btn-icon-right" viewBox="0 0 13 9" width="13" height="9"><use xlink:href="assets/img/sprite.svg#arrow-right"></use></svg>
 								</a>
 							</div>

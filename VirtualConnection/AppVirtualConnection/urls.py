@@ -11,6 +11,7 @@ urlpatterns=[
         
         # Vistas Publicas
         path('',Inicio,name="InicioPage"),
+        path('Inicio',Inicio,name="InicioPage"),
         # path('Contacto',Contacto,name="ContactoPage"),
         # path('Nosotros',Nosotros,name="NosotrosPage"),
         # path('Noticias',Noticias,name="NoticiasPage"),

@@ -29,7 +29,7 @@
                 
             </div>
             {% else %}
-            <p>Datos no encontrados en la base de Datos</p>
+            <!-- <p>Datos no encontrados en la base de Datos</p> -->
             {% endif %}
 
             {% if error_message %}
@@ -118,16 +118,6 @@
 
 <section class="home">
     <div class="text">Estadisticas</div>
-
-    <div class="main" id="main">
-        <div id="responsive-grid"><div class="react-grid-layout layout" style="height: 10px;"></div></div>
-        </div>
-
-        {% if username %}
-        <p>Bienvenido, {{ username }}</p>
-        {% else %}
-        <!-- <p>No has iniciado sesión.</p> -->
-        {% endif %}
 
 </section>
 
