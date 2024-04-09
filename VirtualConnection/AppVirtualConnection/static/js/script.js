@@ -42,3 +42,39 @@ modelSwitch.addEventListener("click", () => {
     }
 });
 
+
+
+
+
+
+
+
+firebase.auth().onAuthStateChanged(function(user) {
+    if (user) {
+      var displayName = user.displayName; // Obtén el nombre de usuario
+      enviarNombreUsuario(displayName); // Llama a la función para enviar el nombre de usuario
+    } else {
+      // El usuario no está autenticado.
+    }
+  });
+  
+  function enviarNombreUsuario(username) {
+    fetch('/ruta/en/django/para/mi/vista', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+      },
+      body: 'username=' + encodeURIComponent(username),
+    })
+    .then(response => {
+      if (response.ok) {
+        console.log('Nombre de usuario enviado correctamente a Django');
+      } else {
+        console.error('Error al enviar el nombre de usuario a Django');
+      }
+    })
+    .catch(error => {
+      console.error('Error:', error);
+    });
+  }
+  

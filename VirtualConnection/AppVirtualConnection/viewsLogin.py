@@ -1,67 +1,71 @@
-#VISTAS PARA REGISTRO DE USUARIOS Y LOGEO
+#LOGICA PARA REGISTRO DE USUARIOS Y LOGEO
 from .forms import *
-from firebase_admin import credentials
 from django.shortcuts import render, redirect
 import json
 import requests
 from .forms import RegistroForm
 from firebase_admin import auth
-from django.http import JsonResponse
 from firebase_admin import firestore
 from .firebase_config import *
 
-# Asegúrate de importar el formulario adecuado
 
-
-
-from django.shortcuts import redirect
 
 def login_firebase(request):
     error_message = ""
-    username = ""  # Inicializamos el nombre de usuario como una cadena vacía
     
     if request.method == 'POST':
         email = request.POST['email']
         password = request.POST['password']
 
-        # ENVIAMOS LA  SOLICITUD A LA API REST DE  FIREBASE PARA LOGUEAR EL USUARIO
-        auth_url = "https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyB_b0S3kj_ZVl0NSLp3NIWrD4uuEpjAihA"  # Reemplaza API_KEY con tu clave API de Firebase
-
+        auth_url = "https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyB_b0S3kj_ZVl0NSLp3NIWrD4uuEpjAihA"
         data = {
             "email": email,
             "password": password,
             "returnSecureToken": True
         }
 
-        response = requests.post(auth_url, data=json.dumps(data), headers={'Content-Type': 'application/json'})
+        response = requests.post(auth_url, json=data)
 
         if response.status_code == 200:
             user_data = response.json()
-            # Si la solicitud tiene un estado de 200, el inicio de sesión fue exitoso
-            # Obtenemos el UID del usuario autenticado
             user_uid = user_data.get('localId')
-            # Aquí puedes realizar cualquier operación adicional que necesites con el UID del usuario
-            # Por ejemplo, buscar datos específicos del usuario en Firestore
+            
+            # Consulta la colección 'users' en Firestore para obtener el nombre de usuario
+            db = firestore.client()
             user_ref = db.collection('users').document(user_uid)
             user_doc = user_ref.get()
+            
             if user_doc.exists:
-                user_info = user_doc.to_dict()
-                username = user_info.get('username', 'Usuario sin nombre')  # Obtenemos el nombre de usuario del documento
-                # Si todo está bien, redirigimos al usuario a la página de Dashboard y pasamos el nombre de usuario como parte del contexto
-                return redirect('Dashboard', username=username)
+                user_info = {
+                    'username': user_doc.get('username'),
+                    'photo_url': user_data.get('photoUrl', '/static/perfil.png') 
+                }
+                
+                request.session['user_info'] = user_info
+                print("user_info:", user_info)
+                
+                # Redirige a la página de dashboard después del inicio de sesión
+                return render(request, 'Usuarios/Dashboard.html',{'user_info':user_info})
             else:
-                # Si el documento del usuario no existe en Firestore, puedes manejarlo como desees
-                error_message = "Datos del usuario no encontrados"
+                error_message = "Datos del usuario no encontrados en la base de datos"
         else:
-            # Si la solicitud no tiene un estado de 200, hubo un error de inicio de sesión
-            # Obtén el mensaje de error de la respuesta
             error_message = response.json().get('error', {}).get('message', 'Error de autenticación')
 
-    # Retornamos al la vista del formulario y mostramos el error 
     return render(request, 'Autenticacion/IniciarSesion.html', {'error_message': error_message})
 
 
+# Decorador personalizado para verificar la autenticación del usuario
 
+def login_required(view_func):
+    def wrapper(request, *args, **kwargs):
+    
+        if 'user_info' not in request.session:
+            # Si no hay información del usuario en la sesión, envia el usuario a la vista de iniciar sesion 
+            return render(request, 'Autenticacion/IniciarSesion.html')
+        
+        return view_func(request, *args, **kwargs)
+    
+    return wrapper
 
 
 
@@ -107,20 +111,15 @@ from django.shortcuts import render
 
 # Función para enviar la solicitud de restablecimiento de contraseña a Firebase
 def reset_password_firebase(email):
-    # Reemplaza 'API_KEY' con la clave de la API de tu proyecto Firebase
     api_key = 'AIzaSyB_b0S3kj_ZVl0NSLp3NIWrD4uuEpjAihA'
     url = f'https://identitytoolkit.googleapis.com/v1/accounts:sendOobCode?key={api_key}'
 
-    # Cuerpo de la solicitud para restablecer la contraseña
     data = {
         'requestType': 'PASSWORD_RESET',
         'email': email,
     }
-
-    # Realiza la solicitud a la API REST de Firebase
     response = requests.post(url, json=data)
 
-    # Procesa la respuesta
     if response.ok:
         print('Correo electrónico de restablecimiento de contraseña enviado con éxito')
         return {'success': True, 'message': 'Correo electrónico de restablecimiento de contraseña enviado con éxito'}
@@ -137,6 +136,6 @@ def Restablecer_Contraseña(request):
         reset_password_firebase(email)
 
         # Redirige al usuario a la página de éxito
-        return redirect('reset_password_success')  # Asegúrate de tener la URL adecuada en tus archivos de urls.py
+        return redirect('reset_password_success')
 
     return render(request, 'Autenticacion/Restablecer_Contraseña.html')

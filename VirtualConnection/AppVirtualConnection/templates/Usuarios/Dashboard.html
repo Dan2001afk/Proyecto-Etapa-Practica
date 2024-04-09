@@ -15,26 +15,30 @@
     <script src="{% static 'js/jquery.min.js' %}"></script>
     <script src="{% static 'js/gridstack-poly.js' %}"></script>
     <script src="{% static 'js/gridstack-all.js' %}"></script>
-
+    <link rel="icon" href="{% static 'favicon/favicon.ico' %}" type="image/x-icon"> 
     <title>Dashboard</title>
 </head>
 <body>
 <nav class="sidebar close">
     <header>
+        {% if user_info %}
         <div class="image-text">
             <span class="image">
                 <!-- Logo descargado de flaticon  -->
-                <img src="{% static 'img/iot.png' %}" alt="logo">
+                <img src="{{ user_info.photo_url }}" alt="Foto de perfil">
             </span>
 
             <div class="text header-text">
-                <span class="name">{{ username }}</span>
-                <!-- <span class="profession">Web developer</span>  -->
+                <span class="name">{{ user_info.username }}</span>
+                
             </div>
+            {% else %}
+            <!-- <p>Datos no encontrados en la base de Datos</p> -->
+            {% endif %}
 
             {% if error_message %}
             <p>Error: {{ error_message }}</p>
-            {% endif %}
+        {% endif %}
         </div>
 
         <i class='bx bx-chevron-right toggle'></i>
@@ -48,7 +52,7 @@
             </li>
             <ul class="menu-links">
                 <li class="nav-link">
-                    <a href="/dashboard">
+                    <a href="/Dashboard">
                         <i class='bx bxs-dashboard icon'></i>
                         <span class="text nav-text">Dashboard</span>
                     </a>
@@ -93,7 +97,7 @@
 
         <div class="bottom-content">
             <li class="">
-                <a href="/CerrarSesion">
+                <a href="{% url 'logout' %}">
                     <i class='bx bx-log-out icon'></i>
                     <span class="text nav-text">Cerrar sesion</span>
                 </a>
@@ -128,17 +132,36 @@
 
 
 
+
+
 <section class="home">
     <div class="text" id="ContenidoDas">Dashboard
         <div class="modal fade" id="InsertarGraficas" role="dialog"></div>
     </div>
     <div class="grid-stack"></div>
 
-    <form method="post">
+    <!-- <form id="cultivo-form" method="post">
         {% csrf_token %}
         {{ form.as_div }}
         <button type="submit">Guardar</button>
     </form>
+     -->
+
+
+
+     <h1>Formulario con Datos de Firebase</h1>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Guardar</button>
+    </form>
+
+    <h2>Cultivos de Firebase:</h2>
+    <ul>
+        {% for cultivo in cultivos %}
+            <li>{{ cultivo.nombre }} - {{ cultivo.ubicacion }} - {{ cultivo.variedad }} - Temperatura: {{ cultivo.Temperatura_suelo }}, Humedad: {{ cultivo.Humedad }}</li>
+        {% endfor %}
+    </ul>
 
 
     <!-- <div id="chartContainer" class="grid-stack-item-content" style="width: 100%; height: 100%;"></div> -->

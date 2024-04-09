@@ -8,21 +8,31 @@
     <link rel="stylesheet" href="{% static 'css/header.css' %}">
     <!-- Boxicon css -->
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="icon" href="{% static 'favicon/favicon.ico' %}" type="image/x-icon"> 
     <title>Productos</title>
 </head>
 <body>
 <nav class="sidebar close">
     <header>
+
+        {% if user_info %}
         <div class="image-text">
             <span class="image">
                 <!-- Logo descargado de flaticon  -->
-                <img src="{% static 'img/iot.png' %}" alt="logo">
+                <img src="{{ user_info.photo_url }}" alt="Foto de perfil">
             </span>
 
             <div class="text header-text">
-                <span class="name">Daniel Gonzalez</span>
-                <!-- <span class="profession">Web developer</span>  -->
+                <span class="name">{{ user_info.username }}</span>
+                
             </div>
+            {% else %}
+            <!-- <p>Datos no encontrados en la base de Datos</p> -->
+            {% endif %}
+
+            {% if error_message %}
+            <p>Error: {{ error_message }}</p>
+            {% endif %}
         </div>
 
         <i class='bx bx-chevron-right toggle'></i>
@@ -81,7 +91,7 @@
 
         <div class="bottom-content">
             <li class="">
-                <a href="/CerrarSesion">
+                <a href="{% url 'logout' %}">
                     <i class='bx bx-log-out icon'></i>
                     <span class="text nav-text">Cerrar sesion</span>
                 </a>

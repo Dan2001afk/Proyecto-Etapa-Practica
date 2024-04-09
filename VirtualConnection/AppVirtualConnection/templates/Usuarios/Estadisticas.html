@@ -8,21 +8,33 @@
     <link rel="stylesheet" href="{% static 'css/header.css' %}">
     <!-- Boxicon css -->
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <script src="https://www.gstatic.com/firebasejs/9.6.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.0/firebase-auth.js"></script>
+    <link rel="icon" href="{% static 'favicon/favicon.ico' %}" type="image/x-icon"> 
     <title>Estadisticas</title>
 </head>
 <body>
 <nav class="sidebar close">
     <header>
+        
+        {% if user_info %}
         <div class="image-text">
             <span class="image">
                 <!-- Logo descargado de flaticon  -->
-                <img src="{% static 'img/iot.png' %}" alt="logo">
+                <img src="{{ user_info.photo_url }}" alt="Foto de perfil">
             </span>
 
             <div class="text header-text">
-                <span class="name">Daniel Gonzalez</span>
-                <!-- <span class="profession">Web developer</span>  -->
+                <span class="name">{{ user_info.username }}</span>
+                
             </div>
+            {% else %}
+            <p>Datos no encontrados en la base de Datos</p>
+            {% endif %}
+
+            {% if error_message %}
+            <p>Error: {{ error_message }}</p>
+            {% endif %}
         </div>
 
         <i class='bx bx-chevron-right toggle'></i>
@@ -36,7 +48,7 @@
             </li>
             <ul class="menu-links">
                 <li class="nav-link">
-                    <a href="/dashboard/Camilo Gonzalez/">
+                    <a href="/Dashboard">
                         <i class='bx bxs-dashboard icon'></i>
                         <span class="text nav-text">Dashboard</span>
                     </a>
@@ -81,7 +93,7 @@
 
         <div class="bottom-content">
             <li class="">
-                <a href="/CerrarSesion">
+                <a href="{% url 'logout' %}">
                     <i class='bx bx-log-out icon'></i>
                     <span class="text nav-text">Cerrar sesion</span>
                 </a>
@@ -110,6 +122,12 @@
     <div class="main" id="main">
         <div id="responsive-grid"><div class="react-grid-layout layout" style="height: 10px;"></div></div>
         </div>
+
+        {% if username %}
+        <p>Bienvenido, {{ username }}</p>
+        {% else %}
+        <!-- <p>No has iniciado sesión.</p> -->
+        {% endif %}
 
 </section>
 

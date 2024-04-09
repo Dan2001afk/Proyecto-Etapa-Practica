@@ -15,12 +15,9 @@ class LoginForm(forms.Form):
     password = forms.CharField(widget=forms.PasswordInput)
 
 
-# class InsertarCultivos(forms.Form):
-#     Nombre= forms.CharField(label="Nombre")
-#     Ubicacion = forms.CharField(label="Ubicacion")
-#     Variedad = forms.CharField(label="variedad")
-
 class CultivoForm(forms.Form):
     nombre = forms.CharField(max_length=100)
     ubicacion = forms.CharField(max_length=100)
     variedad = forms.CharField(max_length=100)
+    temperatura_suelo = forms.FloatField()
+    humedad = forms.FloatField()

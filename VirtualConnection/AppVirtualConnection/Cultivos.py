@@ -6,7 +6,7 @@ from .firebase_config import *
 db = firestore.client()
 
 # Guardar datos en Firebase
-def guardar_cultivo(nombre, ubicacion, variedad):
+def guardar_cultivo(nombre, ubicacion, variedad,Temperatura_suelo,Humedad):
     # Obtener una referencia a la colección 'Cultivos' en Firebase
     cultivos_ref = db.collection('Cultivos')
     
@@ -17,5 +17,7 @@ def guardar_cultivo(nombre, ubicacion, variedad):
     nuevo_cultivo_ref.set({
         'nombre': nombre,
         'ubicacion': ubicacion,
-        'variedad': variedad
+        'Temperatura_suelo': Temperatura_suelo,
+        'Humedad' : Humedad,
+        'variedad': variedad,
     })
