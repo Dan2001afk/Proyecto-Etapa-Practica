@@ -18,7 +18,7 @@ urlpatterns=[
         # path('Servicios',Servicios,name="NoticiasPage"),
 
         # Vistas Usuarios
-        path('Dashboard', views.Dashboard, name='Dashboard'),
+        path('Dashboard/', views.Dashboard, name='Dashboard'),
         path('Dispositivos',Dispositivos,name="DispositivosPage"),
         path('Estadisticas',Estadisticas,name="EstadisticasPage"),
         path('Alarmas',Alarmas,name="AlarmasPage"),
@@ -31,6 +31,8 @@ urlpatterns=[
         path('reset-password/', Restablecer_Contraseña, name='Reset-passwordPage'),
         path('logout/', logout_view, name='logout'),  # URL para cerrar sesión
         
+        #Insertar Cultivos
+
         
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT) 

@@ -23,7 +23,7 @@ def login_firebase(request):
             "password": password,
             "returnSecureToken": True
         }
-
+        
         response = requests.post(auth_url, json=data)
 
         if response.status_code == 200:
@@ -45,7 +45,8 @@ def login_firebase(request):
                 print("user_info:", user_info)
                 
                 # Redirige a la página de dashboard después del inicio de sesión
-                return render(request, 'Usuarios/Dashboard.html',{'user_info':user_info})
+                #return render(request, 'Usuarios/Dashboard.html',{'user_info':user_info})
+                return redirect ('Dashboard')
             else:
                 error_message = "Datos del usuario no encontrados en la base de datos"
         else:
@@ -93,7 +94,7 @@ def registro_usuario(request):
                 return redirect('login')
             else:
                 error_message = response.json().get('error', {}).get('message', 'Error de registro')
-                return render(request, 'register.html', {'error_message': error_message})
+                return render(request, 'Autenticacion/Registro.html', {'error_message': error_message})
     else:
         form = RegistroForm()
 

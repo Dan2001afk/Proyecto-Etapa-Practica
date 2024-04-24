@@ -1,3 +1,4 @@
+from typing import Any
 from django.shortcuts import render, redirect
 from .forms import CultivoForm
 from AppVirtualConnection.Cultivos import guardar_cultivo
@@ -11,6 +12,7 @@ from django.utils.decorators import method_decorator
 from django.views.decorators.csrf import csrf_exempt
 import json
 from .firebase_config import *
+from firebase_admin import storage
 
 #Plantillas Publicas
 
@@ -33,15 +35,24 @@ def Inicio(request):
 
 @login_required
 def Alarmas(request):
-    return render (request, "Usuarios/Alarmas.html")
+    user_info = request.session.get('user_info')
+    
+    if user_info:
+        return render (request, "Usuarios/Alarmas.html",{'user_info':user_info})
 
 @login_required
 def Tableros(request):
-    return render (request, "Usuarios/Tableros.html")
+    user_info = request.session.get('user_info')
+    
+    if user_info:
+        return render (request, "Usuarios/Tableros.html",{'user_info':user_info})
 
 @login_required
 def Productos(request):
-    return render (request, "Usuarios/Productos.html")
+    user_info = request.session.get('user_info')
+    
+    if user_info:
+        return render (request, "Usuarios/Productos.html",{'user_info':user_info})
 
 # @login_required
 # def Dispositivos(request):
@@ -50,13 +61,11 @@ def Productos(request):
 
 @login_required
 def Estadisticas(request):
-    if request.method == 'POST':
-        # Aquí recibes el nombre de usuario de Firebase
-        username = request.POST.get('username')
-        # Pasa el nombre de usuario a la plantilla
-        return render(request, 'Usuarios/Estadisticas.html', {'username': username})
-    else:
-        return render(request, 'Usuarios/Estadisticas.html')
+    user_info = request.session.get('user_info')
+    
+    if user_info:
+        
+        return render(request, 'Usuarios/Estadisticas.html',{'user_info':user_info})
 
 # plantillas de Autenticacion
 from django.shortcuts import render
@@ -73,50 +82,55 @@ def logout_view(request):
 
 
 def Dashboard(request):
-    if request.method == 'POST':
-        form = CultivoForm(request.POST)
-        if form.is_valid():
-            # Crear un nuevo documento en Firebase Firestore con los datos del formulario
-            nuevo_cultivo = {
-                'nombre': form.cleaned_data['nombre'],
-                'ubicacion': form.cleaned_data['ubicacion'],
-                'variedad': form.cleaned_data['variedad'],
-                'Temperatura_suelo': form.cleaned_data['temperatura_suelo'],
-                'Humedad': form.cleaned_data['humedad']
-            }
-            db.collection('Cultivos').add(nuevo_cultivo)
-            
-            # Redireccionar a otra página después de guardar los datos
-            return redirect('Dashboard')
-    else:
-        form = CultivoForm()
+    user_info = request.session.get('user_info')
+    
+    if user_info:
+        if request.method == 'POST':
+            form = CultivoForm(request.POST, request.FILES)
+            print("Datos del formulario",CultivoForm)
+            if form.is_valid():
+                nuevo_cultivo = {
+                    'nombre': form.cleaned_data['nombre'],
+                    'ubicacion': form.cleaned_data['ubicacion'],
+                    'variedad': form.cleaned_data['variedad'],
+                    'Temperatura_suelo': form.cleaned_data['temperatura_suelo'],
+                    'Humedad': form.cleaned_data['humedad']
+                }
+                
+                # Guardar la imagen en Firebase Storage
+                imagen = request.FILES['imagen']
+                bucket = storage.bucket()  # Obtener el bucket predeterminado
+                blob = bucket.blob(imagen.name)  # Crear un nuevo blob en el bucket con el nombre del archivo
+                blob.upload_from_file(imagen)  # Subir la imagen al blob
+                
+                # Obtener la URL de descarga de la imagen en Firebase Storage
+                imagen_url = blob.public_url
+                
+                # Agregar la URL de la imagen al diccionario del nuevo cultivo
+                nuevo_cultivo['imagen_url'] = imagen_url
+                
+                # Guardar el nuevo cultivo en la base de datos Firestore o en donde lo desees
+                # db.collection('Cultivos').add(nuevo_cultivo)
+                
+                return redirect('Dashboard')
+        else:
+            form = CultivoForm()
         
-    return render(request, 'Usuarios/Dashboard.html', {'form': form})
+        return render(request, 'Usuarios/Dashboard.html', {'user_info': user_info, 'form': form})
+    
+    return redirect('login')
 
-
-
-
-from django.shortcuts import render
-from .forms import CultivoForm
-from firebase_admin import firestore
 
 def Dispositivos(request):
-    db = firestore.client()
-    cultivos_ref = db.collection('Cultivos')
-    cultivos_docs = cultivos_ref.get()
+    user_info = request.session.get('user_info')
+    
+    if user_info:
+        db = firestore.client()
+        cultivos_ref = db.collection('Cultivos')
+        cultivos_docs = cultivos_ref.get()
 
-    cultivos_data = []
-    for cultivo in cultivos_docs:
-        cultivo_data = cultivo.to_dict()
-        cultivos_data.append(cultivo_data)
-
-    if request.method == 'POST':
-        form = CultivoForm(request.POST)
-        if form.is_valid():
-            # Procesar el formulario si es válido
-          # Aquí puedes agregar lógica adicional según tus necesidades
-            return render(request, 'Usuarios/Dashboard.html')
-    else:
-        form = CultivoForm(cultivos=cultivos_data)  # Pasa los datos de cultivos al formulario
-
-    return render(request, 'Usuarios/Dispositivos.html', {'form': form, 'cultivos': cultivos_data})
+        cultivos_data = []
+        for cultivo in cultivos_docs:
+            cultivo_data = cultivo.to_dict()
+            cultivos_data.append(cultivo_data)
+    return render(request, 'Usuarios/Dispositivos.html', {'cultivos': cultivos_data, 'user_info':user_info})

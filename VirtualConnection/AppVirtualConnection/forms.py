@@ -23,6 +23,7 @@ class CultivoForm(forms.Form):
     variedad = forms.CharField(max_length=100)
     temperatura_suelo = forms.FloatField()
     humedad = forms.FloatField()
+    imagen = forms.ImageField()
 
     def __init__(self, *args, **kwargs):
         cultivos = kwargs.pop('cultivos', None)  # Obtiene la lista de cultivos del argumento kwargs
