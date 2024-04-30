@@ -135,13 +135,30 @@
       {% endfor %}
     </div>
     
-    <div id="formulario"></div>
+    <form id="formulario">
+        <label for="nombre">Nombre:</label>
+        <input type="text" id="nombre">
+        
+        <label for="ubicacion">Ubicación:</label>
+        <input type="text" id="ubicacion">
+        
+        <label for="variedad">Variedad:</label>
+        <input type="text" id="variedad">
+        
+        <label for="Temperatura_suelo">Temperatura del suelo:</label>
+        <input type="number" id="Temperatura_suelo">
+        
+        <label for="Humedad">Humedad:</label>
+        <input type="number" id="Humedad">
+    </form>
+    
+    <canvas id="miGrafico" width="400" height="400"></canvas>
 
     
 
 </section>
-
-<script src="https://www.gstatic.com/firebasejs/4.3.0/firebase.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.3.0/firebase.js"></script>
 <script src='https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js'></script>
 <script src="{% static 'js/script.js' %}"></script>
 </body>

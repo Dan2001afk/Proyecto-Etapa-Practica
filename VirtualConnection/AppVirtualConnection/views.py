@@ -95,7 +95,18 @@ from .forms import CultivoForm  # Importa tu formulario aquí
 @login_required
 def Dashboard(request):
     user_info = request.session.get('user_info')
-    
+    db = firestore.client()
+    cultivos_ref = db.collection('Cultivos')
+    cultivos_docs = cultivos_ref.get()
+    cultivos_data = []
+    for cultivo_doc in cultivos_docs:
+        cultivo_data = cultivo_doc.to_dict()
+        cultivo_id = cultivo_doc.id
+        imagen_url = cultivo_data.get('imagen_url', '')  # Obtener la URL de la imagen del documento
+        print("url de la imagen", imagen_url)
+        cultivo_data['imagen_url'] = imagen_url  # Agregar la URL de la imagen al diccionario de datos del cultivo
+        cultivos_data.append({'id': cultivo_id, 'data': cultivo_data})  # Agregar el ID del documento y los datos del cultivo a la lista
+        print("Datos del cultivo", cultivos_data)
     if user_info:
         if request.method == 'POST':
             form = CultivoForm(request.POST, request.FILES)
@@ -132,7 +143,7 @@ def Dashboard(request):
         else:
             form = CultivoForm()
         
-        return render(request, 'Usuarios/Dashboard.html', {'user_info': user_info, 'form': form})
+        return render(request, 'Usuarios/Dashboard.html', {'cultivos': cultivos_data,'user_info': user_info, 'form': form})
     
     return redirect('login')
 

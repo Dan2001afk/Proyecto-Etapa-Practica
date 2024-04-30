@@ -271,3 +271,96 @@ $(function () {
   // }
   
   // PruebaEcharts();
+
+
+
+//   function cargarDatosFirebase(params) {
+//     const firebaseConfig = {
+//         apiKey: "AIzaSyB_b0S3kj_ZVl0NSLp3NIWrD4uuEpjAihA",
+//         authDomain: "virtualconnection-643e6.firebaseapp.com",
+//         databaseURL: "https://virtualconnection-643e6-default-rtdb.firebaseio.com",
+//         projectId: "virtualconnection-643e6",
+//         storageBucket: "virtualconnection-643e6.appspot.com",
+//         messagingSenderId: "1093478819923",
+//         appId: "1:1093478819923:web:c0bf89d258396aba853ea6"
+//       };
+
+//     // Inicializar Firebase
+//     firebase.initializeApp(firebaseConfig);
+//     function obtenerDatosDelCultivo(cultivoId) {
+//         const db = firebase.firestore();
+
+//         // Referencia al documento específico del cultivo en Firestore
+//         var cultivoRef = db.collection('Cultivos').doc(cultivoId);
+//         console.log("La referencia a la base de datos es: " + cultivoRef.path);
+//         // Obtener los datos del cultivo desde Firestore
+//         cultivoRef.get().then(doc => {
+//             if (doc.exists) {
+//                 // Obtener los datos del documento
+//                 const cultivoData = doc.data();
+//                 console.log("Los datos del cultivo son: ", cultivoData);
+//                 // Hacer algo con los datos del cultivo
+//                 llenarFormulario(cultivoData);
+//                 generarGraficas(cultivoData);
+//             } else {
+//                 console.error('No se encontró el documento del cultivo');
+//             }
+//         }).catch(error => {
+//             console.error('Error al obtener datos del cultivo:', error);
+//         });
+//     }
+
+
+//     // Función para llenar el formulario con los datos del cultivo
+//     function llenarFormulario(cultivoData) {
+//         // Aquí llenarías el formulario con los datos del cultivo
+//         // Por ejemplo:
+//         console.log("estos son los datos que se están almacenando en la variable" + cultivoData)
+//         document.getElementById('nombre').value = cultivoData.nombre;
+//         document.getElementById('ubicacion').value = cultivoData.ubicacion;
+//         document.getElementById('variedad').value = cultivoData.variedad;
+//         document.getElementById('Temperatura_suelo').value = cultivoData.Temperatura_suelo;
+//         document.getElementById('Humedad').value = cultivoData.Humedad;
+//     }
+
+//     // Luego, cuando se hace clic en el botón "Generar Formulario"
+//     document.querySelectorAll('.boton').forEach(button => {
+//         button.addEventListener('click', function () {
+//             const cultivoId = this.getAttribute('data-cultivo-id');
+//             // Llamamos a la función para obtener los datos del cultivo
+//             obtenerDatosDelCultivo(cultivoId);
+//         });
+//     });
+// }
+// cargarDatosFirebase();
+
+
+// function generarGraficas(cultivoData) {
+//     const etiquetas = ['Temperatura del suelo', 'Humedad'];
+//     const datos = [cultivoData.Temperatura_suelo, cultivoData.Humedad];
+
+//     const ctx = document.getElementById('miGrafico').getContext('2d');
+
+//     const miGrafico = new Chart(ctx, {
+//         type: 'bar', // Tipo de gráfico (barra en este caso)
+//         data: {
+//           labels: etiquetas, // Etiquetas para el eje X
+//           datasets: [{
+//             label: 'Datos del Cultivo', // Etiqueta para la leyenda
+//             data: datos, // Datos para el eje Y
+//             backgroundColor: 'rgba(255, 99, 132, 0.2)', // Color de fondo de las barras
+//             borderColor: 'rgba(255, 99, 132, 1)', // Color del borde de las barras
+//             borderWidth: 1 // Ancho del borde de las barras
+//           }]
+//         },
+//         options: {
+//           scales: {
+//             y: {
+//               beginAtZero: true // Comenzar el eje Y en cero
+//             }
+//           }
+//         }
+//       });     
+// }
+
+// generarGraficas();

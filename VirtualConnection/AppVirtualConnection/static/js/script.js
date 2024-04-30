@@ -44,71 +44,111 @@ modelSwitch.addEventListener("click", () => {
 
 
 
-/*redireccionar al dar click en el boton del formulario generar graficas*/
-function redireccionar(params) {
-    //     document.getElementById("boton").addEventListener("click", function() {
-    //         // Acción a realizar al hacer clic en el botón, por ejemplo, redirigir a otra página
-    //         window.location.href = "Dashboard";
-    //       });
-    document.querySelectorAll('#boton').forEach(button => {
-        button.addEventListener('click', function () {
-            window.location.href = "Dashboard";
-        });
-    });
-}
-
-redireccionar();
-
+let grid;
 
 function cargarDatosFirebase(params) {
+    grid = GridStack.init();
+    const firebaseConfig = {
+        apiKey: "AIzaSyB_b0S3kj_ZVl0NSLp3NIWrD4uuEpjAihA",
+        authDomain: "virtualconnection-643e6.firebaseapp.com",
+        databaseURL: "https://virtualconnection-643e6-default-rtdb.firebaseio.com",
+        projectId: "virtualconnection-643e6",
+        storageBucket: "virtualconnection-643e6.appspot.com",
+        messagingSenderId: "1093478819923",
+        appId: "1:1093478819923:web:c0bf89d258396aba853ea6"
+    };
 
-   
-    // Obtener una referencia a la base de datos de Firebase
-    var firestore = firebase.firestore();
-    // Función para obtener los datos del cultivo
+    // Inicializar Firebase
+    firebase.initializeApp(firebaseConfig);
+
     function obtenerDatosDelCultivo(cultivoId) {
-        // Referencia al documento específico del cultivo en Firestore
-        var cultivoRef = firestore.collection('Cultivos').doc(cultivoId);
-        console.log("La referencia a la base de datos es: " + cultivoRef.path);
-        // Obtener los datos del cultivo desde Firestore
-        cultivoRef.get().then(doc => {
-            if (doc.exists) {
-                // Obtener los datos del documento
-                const cultivoData = doc.data();
-                console.log("Los datos del cultivo son: ", cultivoData);
-                // Hacer algo con los datos del cultivo
-                llenarFormulario(cultivoData);
-            } else {
-                console.error('No se encontró el documento del cultivo');
-            }
-        }).catch(error => {
-            console.error('Error al obtener datos del cultivo:', error);
+        return new Promise((resolve, reject) => {
+            const db = firebase.firestore();
+
+            // Referencia al documento específico del cultivo en Firestore
+            var cultivoRef = db.collection('Cultivos').doc(cultivoId);
+
+            // Obtener los datos del cultivo desde Firestore
+            cultivoRef.get().then(doc => {
+                if (doc.exists) {
+                    // Si el documento existe, resolver la promesa con los datos del cultivo
+                    const cultivoData = doc.data();
+                    resolve(cultivoData);
+                } else {
+                    // Si el documento no existe, rechazar la promesa con un mensaje de error
+                    reject('No se encontró el documento del cultivo');
+                }
+            }).catch(error => {
+                // Si hay un error al obtener los datos, rechazar la promesa con el error
+                reject('Error al obtener datos del cultivo:', error);
+            });
         });
     }
-    
 
-    // Función para llenar el formulario con los datos del cultivo
-    function llenarFormulario(cultivoData) {
-        // Aquí llenarías el formulario con los datos del cultivo
-        // Por ejemplo:
-        console.log("estos son los datos que se están almacenando en la variable" + cultivoData)
-        document.getElementById('nombre').value = cultivoData.nombre;
-        document.getElementById('ubicacion').value = cultivoData.ubicacion;
-        document.getElementById('variedad').value = cultivoData.variedad;
-        document.getElementById('Temperatura_suelo').value = cultivoData.Temperatura_suelo;
-        document.getElementById('Humedad').value = cultivoData.Humedad;
-    }
-
-    // Luego, cuando se hace clic en el botón "Generar Formulario"
     document.querySelectorAll('.boton').forEach(button => {
         button.addEventListener('click', function () {
             const cultivoId = this.getAttribute('data-cultivo-id');
             // Llamamos a la función para obtener los datos del cultivo
-            obtenerDatosDelCultivo(cultivoId);
+            obtenerDatosDelCultivo(cultivoId)
+                .then(cultivoData => crearGrafica(cultivoData, grid)) // Pasar grid como argumento
+                .catch(error => console.error(error));
+        });
+    });
+    
+}
+
+
+function crearGrafica(cultivoData, grid) {
+    var options = { width: 10, height: 10 }; // Opciones de tamaño para el widget de GridStack
+    var content = '<div class="grid-stack-item-content"><canvas class="grafica-canvas" width="400" height="200"></canvas></div>'; // Contenido HTML del widget
+    var widget = grid.addWidget(content, options); // Agregar el widget al GridStack
+    var canvas = widget.querySelector('.grafica-canvas'); // Seleccionar el canvas dentro del widget
+    generarGraficaEnCanvas(canvas, cultivoData); // Generar la gráfica en el canvas seleccionado con los datos del cultivo
+    
+}
+
+cargarDatosFirebase();
+
+// Función para generar la gráfica en un canvas específico
+function generarGraficaEnCanvas(canvas, cultivoData) {
+    var ctx = canvas.getContext('2d');
+    // Usar los datos del cultivo para generar la gráfica
+    var myChart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: ['Temperatura del suelo', 'Humedad'], // Etiquetas para el eje X
+            datasets: [{
+                label: 'Datos del Cultivo', // Etiqueta para la leyenda
+                data: [cultivoData.Temperatura_suelo, cultivoData.Humedad], // Datos para el eje Y
+                backgroundColor: 'rgba(255, 99, 132, 0.2)', // Color de fondo de las barras
+                borderColor: 'rgba(255, 99, 132, 1)', // Color del borde de las barras
+                borderWidth: 1 // Ancho del borde de las barras
+            }]
+        },
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true // Comenzar el eje Y en cero
+                }
+            }
+        }
+    });
+
+    
+    document.addEventListener('DOMContentLoaded', function () {
+        grid.on('resizestop', function (event, el) {
+            // Obtener el canvas dentro del widget
+            var canvas = el.querySelector('.grafica-canvas');
+            // Ajustar el tamaño del canvas para que coincida con el nuevo tamaño del contenedor
+            canvas.width = canvas.parentNode.clientWidth;
+            canvas.height = canvas.parentNode.clientHeight;
+            // Si estás utilizando Chart.js para la gráfica, redimensionar la gráfica
+            if (chart) {
+                chart.resize();
+            }
         });
     });
 }
 
 
 
-cargarDatosFirebase();

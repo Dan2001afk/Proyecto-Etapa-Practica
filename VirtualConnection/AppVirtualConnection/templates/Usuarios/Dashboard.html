@@ -12,8 +12,6 @@
     <!-- Boxicon css -->
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <script type="module" src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script src="{% static 'js/chart.js' %}"></script>
-    <script src="{% static 'js/echarts.min.js' %}"></script>
     <script src="{% static 'js/jquery.min.js' %}"></script>
     <script src="{% static 'js/gridstack-poly.js' %}"></script>
     <script src="{% static 'js/gridstack-all.js' %}"></script>
@@ -193,14 +191,49 @@
         <div class="text" id="ContenidoDas">
             <div class="modal fade" id="InsertarGraficas" role="dialog"></div>
             <button onclick="openModal()">Agregar Nuevo Cultivo</button>
+        </div>
 
+        <h2>Cultivos Registrados:</h2>
+        <div class="card-container">
+          {% for cultivo in cultivos %}
+          <div class="card">
+            <img src="{{ cultivo.data.imagen_url }}" alt="Cultivo" class="cultivo-img">
+            <div class="container">
+              <h4><b>Nombre del Cultivo: {{ cultivo.data.nombre }}</b></h4>
+              <p>Ubicacion: {{ cultivo.data.ubicacion }}</p>
+              <p>Variedad: {{ cultivo.data.variedad }}</p>
+              <p>Temperatura suelo: {{ cultivo.data.Temperatura_suelo }}</p>
+              <p>Humedad: {{ cultivo.data.Humedad }}</p>
+              <button class="boton" data-cultivo-id="{{ cultivo.id }}">Generar Grafica</button>
+            </div>
+          </div>
+          {% endfor %}
         </div>
 
         <div class="grid-stack"></div>
+        <canvas id="miGrafico"></canvas>
+
+<!--             
+    <form id="formulario">
+        <label for="nombre">Nombre:</label>
+        <input type="text" id="nombre">
+        
+        <label for="ubicacion">Ubicación:</label>
+        <input type="text" id="ubicacion">
+        
+        <label for="variedad">Variedad:</label>
+        <input type="text" id="variedad">
+        
+        <label for="Temperatura_suelo">Temperatura del suelo:</label>
+        <input type="number" id="Temperatura_suelo">
+        
+        <label for="Humedad">Humedad:</label>
+        <input type="number" id="Humedad">
+    </form> -->
+        
 
     </section>
-
-    <script src="https://www.gstatic.com/firebasejs/4.3.0/firebase.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.3.0/firebase.js"></script>
     <script src='https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js'></script>
     <script src="{% static 'js/Dashboard.js' %}"></script>
     <script src="{% static 'js/script.js' %}"></script>
