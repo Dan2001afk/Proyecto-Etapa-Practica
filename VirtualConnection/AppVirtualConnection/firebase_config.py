@@ -6,7 +6,7 @@ cred = credentials.Certificate("C:/Users/camilo/Desktop/sena/Proyecto-Etapa-Prac
 if not firebase_admin._apps:
     firebase_admin.initialize_app(cred, {
         'databaseURL': 'https://virtualconnection-643e6-default-rtdb.firebaseio.com/',
-        'storageBucket': 'cultivos_virtual_connections'
+        'storageBucket': 'virtualconnection-643e6.appspot.com'
     })
 
 db = firestore.client()

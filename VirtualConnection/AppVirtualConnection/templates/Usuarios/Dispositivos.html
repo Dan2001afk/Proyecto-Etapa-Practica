@@ -4,12 +4,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- archivos css -->
     <link rel="stylesheet" href="{% static 'css/header.css' %}">
     <link rel="stylesheet" href="{% static 'css/Dispositivos.css' %}">
-    <!-- Boxicon css -->
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <link rel="icon" href="{% static 'favicon/favicon.ico' %}" type="image/x-icon"> 
+    <!-- <script src="https://www.gstatic.com/firebasejs/7.8.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.8.0/firebase-firestore.js"></script> -->
     <title>Dispositivos</title>
 </head>
 <body>
@@ -119,16 +119,30 @@
     <div class="text">Dispositivos</div>
 
     <h2>Cultivos Registrados:</h2>
-    <ul>
-        {% for cultivo in cultivos %}
-            <li>{{ cultivo.nombre }} - {{ cultivo.ubicacion }} - {{ cultivo.variedad }} - Temperatura: {{ cultivo.Temperatura_suelo }}, Humedad: {{ cultivo.Humedad }}</li>
-        {% endfor %}
-    </ul>
+    <div class="card-container">
+      {% for cultivo in cultivos %}
+      <div class="card">
+        <img src="{{ cultivo.data.imagen_url }}" alt="Cultivo" class="cultivo-img">
+        <div class="container">
+          <h4><b>Nombre del Cultivo: {{ cultivo.data.nombre }}</b></h4>
+          <p>Ubicacion: {{ cultivo.data.ubicacion }}</p>
+          <p>Variedad: {{ cultivo.data.variedad }}</p>
+          <p>Temperatura suelo: {{ cultivo.data.Temperatura_suelo }}</p>
+          <p>Humedad: {{ cultivo.data.Humedad }}</p>
+          <button class="boton" data-cultivo-id="{{ cultivo.id }}">Generar Formulario</button>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+    
+    <div id="formulario"></div>
 
+    
 
 </section>
 
-
+<script src="https://www.gstatic.com/firebasejs/4.3.0/firebase.js"></script>
+<script src='https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js'></script>
 <script src="{% static 'js/script.js' %}"></script>
 </body>
 </html>

@@ -10,6 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.0/ref/settings/
 """
 
+import json
 from pathlib import Path
 import os
 
@@ -94,16 +95,6 @@ DATABASES = {
 }
 
 AUTH_USER_MODEL = 'AppVirtualConnection.CustomUser'
-
-# FIREBASE_CONFIG  = {
-#   "apiKey": "AIzaSyB_b0S3kj_ZVl0NSLp3NIWrD4uuEpjAihA",
-#   "authDomain": "virtualconnection-643e6.firebaseapp.com",
-#   "databaseURL": "https://virtualconnection-643e6-default-rtdb.firebaseio.com",
-#   "projectId": "virtualconnection-643e6",
-#   "storageBucket": "virtualconnection-643e6.appspot.com",
-#   "messagingSenderId": "1093478819923",
-#   "appId": "1:1093478819923:web:c0bf89d258396aba853ea6"
-# }
 
 
 

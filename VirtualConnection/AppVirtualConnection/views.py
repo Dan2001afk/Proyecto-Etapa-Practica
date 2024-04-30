@@ -81,14 +81,26 @@ def logout_view(request):
 #------------------------------------------------------PRUEBAS---------------------------------------------------------
 
 
+from firebase_admin import storage
+
+import firebase_admin
+from firebase_admin import credentials, storage
+from django.shortcuts import redirect, render
+from .forms import CultivoForm
+
+from firebase_admin import firestore
+from django.shortcuts import render, redirect
+from .forms import CultivoForm  # Importa tu formulario aquí
+
+@login_required
 def Dashboard(request):
     user_info = request.session.get('user_info')
     
     if user_info:
         if request.method == 'POST':
             form = CultivoForm(request.POST, request.FILES)
-            print("Datos del formulario",CultivoForm)
             if form.is_valid():
+                # Crear un nuevo objeto Cultivo con los datos del formulario
                 nuevo_cultivo = {
                     'nombre': form.cleaned_data['nombre'],
                     'ubicacion': form.cleaned_data['ubicacion'],
@@ -97,22 +109,26 @@ def Dashboard(request):
                     'Humedad': form.cleaned_data['humedad']
                 }
                 
-                # Guardar la imagen en Firebase Storage
-                imagen = request.FILES['imagen']
-                bucket = storage.bucket()  # Obtener el bucket predeterminado
-                blob = bucket.blob(imagen.name)  # Crear un nuevo blob en el bucket con el nombre del archivo
-                blob.upload_from_file(imagen)  # Subir la imagen al blob
+                # Verificar si se ha subido una imagen
+                if 'imagen' in request.FILES:
+                    # Guardar la imagen en Firebase Storage
+                    imagen = request.FILES['imagen']
+                    bucket = storage.bucket()  
+                    blob = bucket.blob(imagen.name) 
+                    blob.upload_from_file(imagen)  
+                    
+                    # Obtener la URL de descarga de la imagen en Firebase Storage
+                    imagen_url = blob.public_url
+                    
+                    # Agregar la URL de la imagen al diccionario del nuevo cultivo
+                    nuevo_cultivo['imagen_url'] = imagen_url
                 
-                # Obtener la URL de descarga de la imagen en Firebase Storage
-                imagen_url = blob.public_url
+                # Guardar el nuevo cultivo en la base de datos Firestore
+                db = firestore.client()
+                db.collection('Cultivos').add(nuevo_cultivo)
                 
-                # Agregar la URL de la imagen al diccionario del nuevo cultivo
-                nuevo_cultivo['imagen_url'] = imagen_url
-                
-                # Guardar el nuevo cultivo en la base de datos Firestore o en donde lo desees
-                # db.collection('Cultivos').add(nuevo_cultivo)
-                
-                return redirect('Dashboard')
+                return redirect('Dashboard')  # Redirigir al dashboard después de guardar el formulario
+        
         else:
             form = CultivoForm()
         
@@ -121,16 +137,20 @@ def Dashboard(request):
     return redirect('login')
 
 
+@login_required
 def Dispositivos(request):
     user_info = request.session.get('user_info')
-    
-    if user_info:
-        db = firestore.client()
-        cultivos_ref = db.collection('Cultivos')
-        cultivos_docs = cultivos_ref.get()
+    db = firestore.client()
+    cultivos_ref = db.collection('Cultivos')
+    cultivos_docs = cultivos_ref.get()
 
-        cultivos_data = []
-        for cultivo in cultivos_docs:
-            cultivo_data = cultivo.to_dict()
-            cultivos_data.append(cultivo_data)
-    return render(request, 'Usuarios/Dispositivos.html', {'cultivos': cultivos_data, 'user_info':user_info})
+    cultivos_data = []
+    for cultivo_doc in cultivos_docs:
+        cultivo_data = cultivo_doc.to_dict()
+        cultivo_id = cultivo_doc.id
+        imagen_url = cultivo_data.get('imagen_url', '')  # Obtener la URL de la imagen del documento
+        print("url de la imagen", imagen_url)
+        cultivo_data['imagen_url'] = imagen_url  # Agregar la URL de la imagen al diccionario de datos del cultivo
+        cultivos_data.append({'id': cultivo_id, 'data': cultivo_data})  # Agregar el ID del documento y los datos del cultivo a la lista
+        print("Datos del cultivo", cultivos_data)
+    return render(request, 'Usuarios/Dispositivos.html', {'cultivos': cultivos_data,'user_info': user_info,})

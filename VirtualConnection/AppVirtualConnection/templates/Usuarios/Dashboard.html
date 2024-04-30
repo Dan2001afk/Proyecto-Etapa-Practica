@@ -1,6 +1,7 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,240 +11,199 @@
     <link rel="stylesheet" href="{% static 'css/gridstack.min.css' %}">
     <!-- Boxicon css -->
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script type="module" src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="{% static 'js/chart.js' %}"></script>
     <script src="{% static 'js/echarts.min.js' %}"></script>
     <script src="{% static 'js/jquery.min.js' %}"></script>
     <script src="{% static 'js/gridstack-poly.js' %}"></script>
     <script src="{% static 'js/gridstack-all.js' %}"></script>
-    <link rel="icon" href="{% static 'favicon/favicon.ico' %}" type="image/x-icon"> 
+    <link rel="icon" href="{% static 'favicon/favicon.ico' %}" type="image/x-icon">
     <title>Dashboard</title>
 </head>
+
 <body>
-<nav class="sidebar close">
-    <header>
-        {% if user_info %}
-        <div class="image-text">
-            <span class="image">
-                <!-- Logo descargado de flaticon  -->
-                <img src="{{ user_info.photo_url }}" alt="Foto de perfil">
-            </span>
+    <nav class="sidebar close">
+        <header>
+            {% if user_info %}
+            <div class="image-text">
+                <span class="image">
+                    <!-- Logo descargado de flaticon  -->
+                    <img src="{{ user_info.photo_url }}" alt="Foto de perfil">
+                </span>
 
-            <div class="text header-text">
-                <span class="name">{{ user_info.username }}</span>
-                
+                <div class="text header-text">
+                    <span class="name">{{ user_info.username }}</span>
+
+                </div>
+                {% else %}
+                <!-- <p>Datos no encontrados en la base de Datos</p> -->
+                {% endif %}
+
+                {% if error_message %}
+                <p>Error: {{ error_message }}</p>
+                {% endif %}
             </div>
-            {% else %}
-            <!-- <p>Datos no encontrados en la base de Datos</p> -->
-            {% endif %}
 
-            {% if error_message %}
-            <p>Error: {{ error_message }}</p>
-        {% endif %}
-        </div>
+            <i class='bx bx-chevron-right toggle'></i>
+        </header>
 
-        <i class='bx bx-chevron-right toggle'></i>
-    </header>
-
-    <div class="menu-bar">
-        <div class="menu">
-            <li class="search-box">
-                <i class='bx bx-search icon'></i>
+        <div class="menu-bar">
+            <div class="menu">
+                <li class="search-box">
+                    <i class='bx bx-search icon'></i>
                     <input type="text" placeholder="search...">
-            </li>
-            <ul class="menu-links">
-                <li class="nav-link">
-                    <a href="/Dashboard">
-                        <i class='bx bxs-dashboard icon'></i>
-                        <span class="text nav-text">Dashboard</span>
+                </li>
+                <ul class="menu-links">
+                    <li class="nav-link">
+                        <a href="/Dashboard">
+                            <i class='bx bxs-dashboard icon'></i>
+                            <span class="text nav-text">Dashboard</span>
+                        </a>
+                    </li>
+
+                    <li class="nav-link">
+                        <a href="/Dispositivos">
+                            <i class='bx bx-devices icon'></i>
+                            <span class="text nav-text">Dispositivos</span>
+                        </a>
+                    </li>
+
+                    <li class="nav-link">
+                        <a href="/Estadisticas">
+                            <i class='bx bx-pie-chart-alt icon'></i>
+                            <span class="text nav-text">Estadisticas</span>
+                        </a>
+                    </li>
+
+                    <li class="nav-link">
+                        <a href="/Alarmas">
+                            <i class='bx bxs-alarm-exclamation icon'></i>
+                            <span class="text nav-text">Alarmas</span>
+                        </a>
+                    </li>
+
+                    <li class="nav-link">
+                        <a href="/Tableros">
+                            <i class='bx bx-chalkboard icon'></i>
+                            <span class="text nav-text">Tableros</span>
+                        </a>
+                    </li>
+
+                    <li class="nav-link">
+                        <a href="/Productos">
+                            <i class='bx bxl-product-hunt icon'></i>
+                            <span class="text nav-text">Productos</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="bottom-content">
+                <li class="">
+                    <a href="{% url 'logout' %}">
+                        <i class='bx bx-log-out icon'></i>
+                        <span class="text nav-text">Cerrar sesion</span>
                     </a>
                 </li>
 
-                <li class="nav-link">
-                    <a href="/Dispositivos">
-                        <i class='bx bx-devices icon'></i>
-                        <span class="text nav-text">Dispositivos</span>
-                    </a>
-                </li>
+                <li class="mode">
+                    <div class="moon-sun">
+                        <i class='bx bx-moon icon moon'></i>
+                        <i class='bx bx-sun icon sun'></i>
+                    </div>
+                    <span class="mode-text text">Dark Mode</span>
 
-                <li class="nav-link">
-                    <a href="/Estadisticas">
-                        <i class='bx bx-pie-chart-alt icon'></i>
-                        <span class="text nav-text">Estadisticas</span>
-                    </a>
-                </li>
+                    <div class="toggle-switch">
+                        <span class="switch"></span>
 
-                <li class="nav-link">
-                    <a href="/Alarmas">
-                        <i class='bx bxs-alarm-exclamation icon'></i>
-                        <span class="text nav-text">Alarmas</span>
-                    </a>
-                </li>
+                    </div>
 
-                <li class="nav-link">
-                    <a href="/Tableros">
-                        <i class='bx bx-chalkboard icon'></i>
-                        <span class="text nav-text">Tableros</span>
-                    </a>
                 </li>
+            </div>
+        </div>
+    </nav>
 
-                <li class="nav-link">
-                    <a href="/Productos">
-                        <i class='bx bxl-product-hunt icon'></i>
-                        <span class="text nav-text">Productos</span>
-                    </a>
-                </li>
-            </ul>
+
+    <!-- Modal -->
+    <div id="myModal" class="modal">
+        <!-- Contenido del modal -->
+        <div class="modal-content">
+            <span class="close" onclick="closeModal()">&times;</span>
+            <div id="form-container">
+                <h1>Nuevo Cultivo</h1>
+                <form method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <label for="id_nombre">Nombre:</label>
+                    <input type="text" name="nombre" maxlength="100" required="" id="id_nombre">
+                    </p>
+                    <p>
+                        <label for="id_ubicacion">Ubicacion:</label>
+                        <input type="text" name="ubicacion" maxlength="100" required="" id="id_ubicacion">
+                    </p>
+                    <p>
+                        <label for="id_variedad">Variedad:</label>
+                        <input type="text" name="variedad" maxlength="100" required="" id="id_variedad">
+                    </p>
+                    <p>
+                        <label for="id_temperatura_suelo">Temperatura suelo:</label>
+                        <input type="number" name="temperatura_suelo" step="any" required="" id="id_temperatura_suelo">
+                    </p>
+                    <p>
+                        <label for="id_humedad">Humedad:</label>
+                        <input type="number" name="humedad" step="any" required="" id="id_humedad">
+                    </p>
+                    <p>
+                        <label for="id_imagen">Imagen:</label>
+                        <input type="file" name="imagen" accept="image/*" required="" id="id_imagen">
+                    </p>
+                    <button type="submit">Guardar</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Función para abrir el modal
+        function openModal() {
+            document.getElementById("myModal").style.display = "block";
+        }
+
+        // Función para cerrar el modal
+        function closeModal() {
+            document.getElementById("myModal").style.display = "none";
+        }
+
+        // Función para generar la gráfica
+        function generarGrafica() {
+            // Aquí puedes implementar la lógica para generar la gráfica
+            // Recuperar los datos ingresados por el usuario y utilizarlos para crear la gráfica
+            // Por ejemplo:
+            var label = document.getElementById("chart-label").value;
+            var data = document.getElementById("chart-data").value.split(",");
+            // ...
+            // Aquí iría el código para generar la gráfica
+            // ...
+            // Después de generar la gráfica, puedes cerrar el modal si lo deseas
+            closeModal();
+        }
+    </script>
+
+
+    <section class="home">
+        <div class="text" id="ContenidoDas">
+            <div class="modal fade" id="InsertarGraficas" role="dialog"></div>
+            <button onclick="openModal()">Agregar Nuevo Cultivo</button>
+
         </div>
 
-        <div class="bottom-content">
-            <li class="">
-                <a href="{% url 'logout' %}">
-                    <i class='bx bx-log-out icon'></i>
-                    <span class="text nav-text">Cerrar sesion</span>
-                </a>
-            </li>
+        <div class="grid-stack"></div>
 
-            <li class="mode">
-                <div class="moon-sun">
-                    <i class='bx bx-moon icon moon'></i>
-                    <i class='bx bx-sun icon sun'></i>
-                </div>
-                <span class="mode-text text">Dark Mode</span>
+    </section>
 
-                <div class="toggle-switch">
-                    <span class="switch"></span>
-
-                </div>
-
-            </li>
-        </div>
-    </div>
-</nav>
-
-
-<!-- Modal -->
-<div id="myModal" class="modal">
-  <!-- Contenido del modal -->
-  <div class="modal-content">
-    <span class="close" onclick="closeModal()">&times;</span>
-    <div id="form-container">
-      <h2>Crear nueva gráfica</h2>
-      <label for="chart-label">Etiqueta de la gráfica:</label>
-      <input type="text" id="chart-label" required><br>
-      <label for="chart-data">Datos de la gráfica (separados por comas):</label>
-      <input type="text" id="chart-data" required><br>
-      <button onclick="generarGrafica()">Generar Gráfica</button>
-    </div>
-  </div>
-</div>
-
-<!-- Estilos CSS para el modal -->
-<style>
-  /* Estilos para el modal */
-  .modal {
-    display: none; /* Ocultar el modal por defecto */
-    position: fixed; /* Fijar posición */
-    z-index: 1; /* Encima de otros elementos */
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    overflow: auto; /* Desplazamiento */
-    background-color: rgba(0, 0, 0, 0.5); /* Fondo oscuro */
-  }
-
-  .modal-content {
-    background-color: #fefefe;
-    margin: 15% auto;
-    padding: 20px;
-    border: 1px solid #888;
-    width: 80%;
-    max-width: 600px;
-    border-radius: 5px;
-  }
-
-  .close {
-    color: #aaa;
-    float: right;
-    font-size: 28px;
-    font-weight: bold;
-  }
-
-  .close:hover,
-  .close:focus {
-    color: black;
-    text-decoration: none;
-    cursor: pointer;
-  }
-</style>
-
-<script>
-  // Función para abrir el modal
-  function openModal() {
-    document.getElementById("myModal").style.display = "block";
-  }
-
-  // Función para cerrar el modal
-  function closeModal() {
-    document.getElementById("myModal").style.display = "none";
-  }
-
-  // Función para generar la gráfica
-  function generarGrafica() {
-    // Aquí puedes implementar la lógica para generar la gráfica
-    // Recuperar los datos ingresados por el usuario y utilizarlos para crear la gráfica
-    // Por ejemplo:
-    var label = document.getElementById("chart-label").value;
-    var data = document.getElementById("chart-data").value.split(",");
-    // ...
-    // Aquí iría el código para generar la gráfica
-    // ...
-    // Después de generar la gráfica, puedes cerrar el modal si lo deseas
-    closeModal();
-  }
-</script>
-
-
-<section class="home">
-    <div class="text" id="ContenidoDas">Dashboard
-        <div class="modal fade" id="InsertarGraficas" role="dialog"></div>
-<button onclick="openModal()">Abrir Modal</button>
-
-    </div>
-    
-    <div class="grid-stack"></div>
-
-    <!-- <form id="cultivo-form" method="post">
-        {% csrf_token %}
-        {{ form.as_div }}
-        <button type="submit">Guardar</button>
-    </form>
-     -->
-
-
-
-     <h1>Formulario con Datos de Firebase</h1>
-     <form method="post" enctype="multipart/form-data">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit">Guardar</button>
-    </form>
-
-
-
-</section>
-
-
-<script src="{% static 'js/Dashboard.js' %}"></script>
-<script src="{% static 'js/script.js' %}"></script>
-
-
-
-
-
-
-
+    <script src="https://www.gstatic.com/firebasejs/4.3.0/firebase.js"></script>
+    <script src='https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js'></script>
+    <script src="{% static 'js/Dashboard.js' %}"></script>
+    <script src="{% static 'js/script.js' %}"></script>
 
 </body>
 </html>
