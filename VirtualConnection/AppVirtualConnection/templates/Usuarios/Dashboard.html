@@ -62,7 +62,7 @@
                     <li class="nav-link">
                         <a href="/Dispositivos">
                             <i class='bx bx-devices icon'></i>
-                            <span class="text nav-text">Dispositivos</span>
+                            <span class="text nav-text">Cultivos</span>
                         </a>
                     </li>
 
@@ -131,27 +131,21 @@
                 <h1>Nuevo Cultivo</h1>
                 <form method="post" enctype="multipart/form-data">
                     {% csrf_token %}
-                    <label for="id_nombre">Nombre:</label>
-                    <input type="text" name="nombre" maxlength="100" required="" id="id_nombre">
+                    <input type="text" name="nombre" maxlength="100" required="" id="id_nombre" placeholder="Nombre">
                     </p>
                     <p>
-                        <label for="id_ubicacion">Ubicacion:</label>
-                        <input type="text" name="ubicacion" maxlength="100" required="" id="id_ubicacion">
+                        <input type="text" name="ubicacion" maxlength="100" required="" id="id_ubicacion" placeholder="Ubicacion">
                     </p>
                     <p>
-                        <label for="id_variedad">Variedad:</label>
-                        <input type="text" name="variedad" maxlength="100" required="" id="id_variedad">
+                        <input type="text" name="variedad" maxlength="100" required="" id="id_variedad" placeholder="Variedad">
                     </p>
                     <p>
-                        <label for="id_temperatura_suelo">Temperatura suelo:</label>
-                        <input type="number" name="temperatura_suelo" step="any" required="" id="id_temperatura_suelo">
+                        <input type="number" name="temperatura_suelo" step="any" required="" id="id_temperatura_suelo" placeholder="Temperatura suelo">
+                    </p>
+                    <p>                                                                                                     
+                        <input type="number" name="humedad" step="any" required="" id="id_humedad" placeholder="Humedad">
                     </p>
                     <p>
-                        <label for="id_humedad">Humedad:</label>
-                        <input type="number" name="humedad" step="any" required="" id="id_humedad">
-                    </p>
-                    <p>
-                        <label for="id_imagen">Imagen:</label>
                         <input type="file" name="imagen" accept="image/*" required="" id="id_imagen">
                     </p>
                     <button type="submit">Guardar</button>
@@ -161,27 +155,22 @@
     </div>
 
     <script>
-        // Función para abrir el modal
+        
         function openModal() {
             document.getElementById("myModal").style.display = "block";
         }
 
-        // Función para cerrar el modal
+        
         function closeModal() {
             document.getElementById("myModal").style.display = "none";
         }
 
-        // Función para generar la gráfica
+        
         function generarGrafica() {
-            // Aquí puedes implementar la lógica para generar la gráfica
-            // Recuperar los datos ingresados por el usuario y utilizarlos para crear la gráfica
-            // Por ejemplo:
+
             var label = document.getElementById("chart-label").value;
             var data = document.getElementById("chart-data").value.split(",");
-            // ...
-            // Aquí iría el código para generar la gráfica
-            // ...
-            // Después de generar la gráfica, puedes cerrar el modal si lo deseas
+ 
             closeModal();
         }
     </script>
@@ -194,6 +183,7 @@
         </div>
 
         <h2>Cultivos Registrados:</h2>
+        <div class="grid-stack"></div>
         <div class="card-container">
           {% for cultivo in cultivos %}
           <div class="card">
@@ -210,7 +200,6 @@
           {% endfor %}
         </div>
 
-        <div class="grid-stack"></div>
         <canvas id="miGrafico"></canvas>
 
 <!--             

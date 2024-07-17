@@ -94,7 +94,7 @@ function cargarDatosFirebase(params) {
                 .catch(error => console.error(error));
         });
     });
-    
+
 }
 
 
@@ -104,7 +104,7 @@ function crearGrafica(cultivoData, grid) {
     var widget = grid.addWidget(content, options); // Agregar el widget al GridStack
     var canvas = widget.querySelector('.grafica-canvas'); // Seleccionar el canvas dentro del widget
     generarGraficaEnCanvas(canvas, cultivoData); // Generar la gráfica en el canvas seleccionado con los datos del cultivo
-    
+
 }
 
 cargarDatosFirebase();
@@ -134,7 +134,7 @@ function generarGraficaEnCanvas(canvas, cultivoData) {
         }
     });
 
-    
+
     document.addEventListener('DOMContentLoaded', function () {
         grid.on('resizestop', function (event, el) {
             // Obtener el canvas dentro del widget

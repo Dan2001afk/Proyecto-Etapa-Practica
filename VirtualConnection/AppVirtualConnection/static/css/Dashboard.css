@@ -159,6 +159,110 @@ h1 {
     background-color: rgb(255, 255, 255);
 
 }
+/* Estilos para inputs */
+
+#id_nombre{
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 15px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-sizing: border-box; /* Asegura que el padding no aumente el ancho del input */
+  font-size: 16px;
+  font-family: Arial, sans-serif;
+}
+
+#id_ubicacion{
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box; /* Asegura que el padding no aumente el ancho del input */
+    font-size: 16px;
+    font-family: Arial, sans-serif;
+  }
+
+#id_variedad{
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box; /* Asegura que el padding no aumente el ancho del input */
+    font-size: 16px;
+    font-family: Arial, sans-serif;
+}
+
+#id_temperatura_suelo{
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box; /* Asegura que el padding no aumente el ancho del input */
+    font-size: 16px;
+    font-family: Arial, sans-serif;
+}
+
+#id_humedad{
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box; /* Asegura que el padding no aumente el ancho del input */
+    font-size: 16px;
+    font-family: Arial, sans-serif;
+}
+
+#id_imagen{
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box; /* Asegura que el padding no aumente el ancho del input */
+    font-size: 16px;
+    font-family: Arial, sans-serif;
+}
+
+/* Estilo para inputs en estado de foco */
+input:focus,
+textarea:focus,
+select:focus {
+  outline: none; /* Quita el contorno predeterminado del navegador */
+  border-color: #007bff; /* Cambia el color del borde al estar enfocado */
+  box-shadow: 0 0 5px rgba(0, 123, 255, 0.5); /* Agrega una sombra al estar enfocado */
+}
+
+/* Estilo para inputs en estado de error */
+input.error,
+textarea.error,
+select.error {
+  border-color: #dc3545; /* Cambia el color del borde en caso de error */
+}
+
+/* Estilo para etiquetas de los inputs */
+label {
+  font-weight: bold;
+}
+
+/* Estilo para botones */
+button {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  background-color: #007bff;
+  color: #fff;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+/* Estilo para botones en estado de hover */
+button:hover {
+  background-color: #0056b3; /* Cambia el color de fondo al pasar el ratón por encima */
+}
 
 
 
