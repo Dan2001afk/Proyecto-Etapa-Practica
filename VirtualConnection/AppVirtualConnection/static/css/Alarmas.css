@@ -1,0 +1,16 @@
+body{
+    background-color: rgb(29, 3, 231);
+}
+
+.alerta {
+    border: 1px solid #ccc;
+    padding: 10px;
+    margin: 10px 0;
+    border-radius: 5px;
+}
+.tipo {
+    font-weight: bold;
+}
+.mensaje {
+    font-size: 16px;
+}

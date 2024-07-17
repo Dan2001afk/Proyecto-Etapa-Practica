@@ -20,7 +20,7 @@ urlpatterns=[
         # Vistas Usuarios
         path('Dashboard/', views.Dashboard, name='Dashboard'),
         path('Dispositivos',Dispositivos,name="DispositivosPage"),
-        path('Estadisticas',Estadisticas,name="EstadisticasPage"),
+        path('Clima/', views.ClimaBogota, name='clima_bogota'),
         path('Alarmas',Alarmas,name="AlarmasPage"),
         path('Tableros',Tableros,name="TablerosPage"),
         path('Productos',Productos,name="ProductosPage"),
@@ -32,7 +32,7 @@ urlpatterns=[
         path('logout/', logout_view, name='logout'),  # URL para cerrar sesión
         
         #Insertar Cultivos
-
+        
         
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT) 

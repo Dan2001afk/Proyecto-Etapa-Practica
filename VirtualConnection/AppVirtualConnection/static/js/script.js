@@ -152,3 +152,56 @@ function generarGraficaEnCanvas(canvas, cultivoData) {
 
 
 
+const cultivos = JSON.parse(`{{ cultivos|safe|escapejs }}`);
+  
+  function openModal(cultivoId) {
+    // Abre el modal
+    const modal = document.getElementById('editModal');
+    modal.style.display = 'block';
+
+    // Busca el cultivo por ID
+    const cultivo = cultivos.find(cultivo => cultivo.id === cultivoId);
+    
+    // Rellena el formulario con los datos del cultivo
+    document.getElementById('cultivoId').value = cultivoId;
+    document.getElementById('nombre').value = cultivo.data.nombre;
+    document.getElementById('ubicacion').value = cultivo.data.ubicacion;
+    document.getElementById('variedad').value = cultivo.data.variedad;
+    document.getElementById('temperatura_suelo').value = cultivo.data.Temperatura_suelo;
+    document.getElementById('humedad').value = cultivo.data.Humedad;
+  }
+
+  function closeModal() {
+    // Cierra el modal
+    const modal = document.getElementById('editModal');
+    modal.style.display = 'none';
+  }
+
+  function submitEdit() {
+    const form = document.getElementById('editForm');
+    const formData = new FormData(form);
+    
+    // Realiza la petición AJAX para enviar los datos
+    fetch('/editar-cultivo/', {
+      method: 'POST',
+      body: formData,
+      headers: {
+        'X-CSRFToken': '{{ csrf_token }}', // Asegúrate de pasar el CSRF token
+      },
+    })
+    .then(response => response.json())
+    .then(data => {
+      if (data.success) {
+        alert('Cultivo actualizado exitosamente.');
+        location.reload(); // Recarga la página para mostrar los cambios
+      } else {
+        alert('Error al actualizar el cultivo.');
+      }
+    })
+    .catch(error => {
+      console.error('Error:', error);
+    });
+
+    // Cierra el modal
+    closeModal();
+  }

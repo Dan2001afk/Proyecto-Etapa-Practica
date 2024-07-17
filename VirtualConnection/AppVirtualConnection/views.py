@@ -1,5 +1,7 @@
 from typing import Any
 from django.shortcuts import render, redirect
+
+from AppVirtualConnection.models import Alerta
 from .forms import CultivoForm
 from AppVirtualConnection.Cultivos import guardar_cultivo
 import requests
@@ -37,8 +39,22 @@ def Inicio(request):
 def Alarmas(request):
     user_info = request.session.get('user_info')
     
+    db = firestore.client()
+    alertas_ref = db.collection('alertas')
+    alertas = alertas_ref.stream()
+
+    lista_alertas = []
+    for alerta in alertas:
+        alert_data = alerta.to_dict()
+        lista_alertas.append(Alerta(
+            id=alerta.id,
+            mensaje=alert_data.get('mensaje'),
+            tipo=alert_data.get('tipo'),
+            fecha=alert_data.get('fecha')
+        ))
+
     if user_info:
-        return render (request, "Usuarios/Alarmas.html",{'user_info':user_info})
+        return render (request, "Usuarios/Alarmas.html",{'user_info':user_info, 'alertas': lista_alertas})
 
 @login_required
 def Tableros(request):
@@ -165,3 +181,51 @@ def Dispositivos(request):
         cultivos_data.append({'id': cultivo_id, 'data': cultivo_data})  # Agregar el ID del documento y los datos del cultivo a la lista
         print("Datos del cultivo", cultivos_data)
     return render(request, 'Usuarios/Dispositivos.html', {'cultivos': cultivos_data,'user_info': user_info,})
+
+import requests
+from django.shortcuts import render
+
+API_KEY = 'fc79abf6af264a718b0214146241707'
+BASE_URL = 'http://api.weatherapi.com/v1/current.json'
+
+def get_weather(city):
+    params = {
+        'key': API_KEY,
+        'q': city,
+        'lang': 'es',
+        'aqi': 'no'
+    }
+    response = requests.get(BASE_URL, params=params)
+    data = response.json()
+
+    if response.status_code == 200:
+        return data
+    else:
+        print(f"Error fetching data for {city}: {data.get('error', 'Unknown error')}")
+        return None
+
+
+def ClimaBogota(request):
+    user_info = request.session.get('user_info')
+    city = 'Bogotá'
+    weather_data = get_weather(city)
+
+    if weather_data and 'current' in weather_data:
+        weather = {
+            'city': city,
+            'temperature': weather_data['current']['temp_c'],
+            'description': weather_data['current']['condition']['text'],
+            'icon': weather_data['current']['condition']['icon']
+        }
+    else:
+        weather = None
+        print(f"Could not retrieve weather for {city}")
+
+    return render(request, 'Usuarios/Estadisticas.html', {'weather': weather, 'user_info':user_info})
+
+
+
+from django.shortcuts import render
+from firebase_admin import firestore
+
+

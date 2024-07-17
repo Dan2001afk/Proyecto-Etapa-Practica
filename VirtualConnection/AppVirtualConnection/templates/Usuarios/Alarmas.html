@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- archivos css -->
     <link rel="stylesheet" href="{% static 'css/header.css' %}">
+    <link rel="stylesheet" href="{% static 'css/Alarmas.css' %}">
     <!-- Boxicon css -->
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <link rel="icon" href="{% static 'favicon/favicon.ico' %}" type="image/x-icon"> 
@@ -59,9 +60,9 @@
                 </li>
 
                 <li class="nav-link">
-                    <a href="/Estadisticas">
+                    <a href="/Clima">
                         <i class='bx bx-pie-chart-alt icon'></i>
-                        <span class="text nav-text">Estadisticas</span>
+                        <span class="text nav-text">Clima</span>
                     </a>
                 </li>
 
@@ -115,6 +116,17 @@
 
 <section class="home">
     <div class="text">Alarmas</div>
+
+    <h1>Alertas del Cultivo</h1>
+    {% for alerta in alertas %}
+        <div class="alerta">
+            <div class="tipo">{{ alerta.tipo }}</div>
+            <div class="mensaje">{{ alerta.mensaje }}</div>
+            <div class="fecha">{{ alerta.fecha }}</div>
+        </div>
+    {% empty %}
+        <p>No hay alertas en este momento.</p>
+    {% endfor %}
 </section>
 
 
