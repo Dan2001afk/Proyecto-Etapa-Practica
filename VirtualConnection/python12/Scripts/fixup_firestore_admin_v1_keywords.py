@@ -1,4 +1,4 @@
-#!C:\Users\camilo\Desktop\sena\Proyecto-Etapa-Practica\VirtualConnection\python12\Scripts\python.exe
+#!C:\Users\Daniel Gonzalez\Downloads\Proyecto-Etapa-Practica\VirtualConnection\python12\Scripts\python.exe
 # -*- coding: utf-8 -*-
 # Copyright 2023 Google LLC
 #

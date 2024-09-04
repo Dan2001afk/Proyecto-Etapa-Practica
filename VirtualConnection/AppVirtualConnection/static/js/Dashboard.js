@@ -1,3 +1,4 @@
+
 $(function () {
   var grid = GridStack.init();
           // Agrega el widget al gridstack
@@ -7,6 +8,11 @@ $(function () {
   function createChart() {
     const canvas = document.getElementById('myChart');
     const ctx = canvas.getContext('2d');
+
+    /* Variables para mostrar hora y fecha */
+    const ahora = new Date();
+    const fecha = ahora.toLocaleDateString();
+    const hora = ahora.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
   
     const myChart = new Chart(ctx, {
       type: 'bar',
@@ -14,11 +20,34 @@ $(function () {
         labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
         datasets: [{
           label: '# of Votes',
-          data: [12, 19, 3, 5, 2, 3],
+          data: [0, 0, 0, 0, 0, 0],
           borderWidth: 1
         }]
       },
       options: {
+        plugins: {
+          legend: {
+            position: 'top',
+          },
+          title: {
+            display: true,
+            text: `${fecha} ${hora}`
+          },
+          subtitle: {
+            display: true,
+            text: '',
+            color: 'blue',
+            font: {
+              size: 12,
+              family: 'tahoma',
+              weight: 'normal',
+              style: 'italic'
+            },
+            padding: {
+              bottom: 10
+            }
+          }
+        },
         scales: {
           y: {
             beginAtZero: true
@@ -26,6 +55,30 @@ $(function () {
         }
       }
     });
+    // Función para generar un número aleatorio
+    function generarNumeroAleatorio() {
+      return Math.floor(Math.random() * 100); // Genera un número entre 0 y 99
+    }
+
+    // Función para actualizar los datos y el subtítulo del gráfico
+    function actualizarDatos() {
+        const nuevoNumero = generarNumeroAleatorio();
+
+        // Actualizar todos los valores de las columnas con el mismo número
+        myChart.data.datasets[0].data = Array(myChart.data.labels.length).fill(nuevoNumero);
+
+        // Actualizar el subtítulo con el nuevo número
+        myChart.options.plugins.subtitle.text = `Número aleatorio: ${nuevoNumero}`;
+
+        // Actualizar el gráfico
+        myChart.update();
+    }
+
+    // Actualizar los datos y el subtítulo inmediatamente
+    actualizarDatos();
+
+    // Actualizar los datos y el subtítulo cada 30 segundos
+    setInterval(actualizarDatos, 5000);
   
     return myChart;
   }
@@ -41,7 +94,7 @@ $(function () {
     myChart = createChart(); // Crea una nueva gráfica con el tamaño actualizado
   });
   
-      });
+});
   
   
   
@@ -100,7 +153,21 @@ $(function () {
           document.getElementById('chart-label').value = '';
           document.getElementById('chart-data').value = '';
         }
-        
+
+
+        /* function updateDateTime() {
+          const now = new Date();
+          const date = now.toLocaleDateString();
+          const time = now.toLocaleTimeString();
+      
+          document.getElementById('datetime').textContent = `Fecha: ${date} - Hora: ${time}`;
+      }
+      
+      // Actualiza cada segundo
+      setInterval(updateDateTime, 1000);
+      
+      // Llama a la función inmediatamente para mostrar la hora y fecha iniciales
+      updateDateTime(); */
   
   
   

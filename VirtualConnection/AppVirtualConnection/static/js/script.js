@@ -97,6 +97,108 @@ function cargarDatosFirebase(params) {
 
 }
 
+cargarDatosFirebase();
+
+// Función para generar la gráfica en un canvas específico
+function generarGraficaEnCanvas(canvas, cultivoData) {
+    var ctx = canvas.getContext('2d');
+    const nombre_cultivo = cultivoData.nombre
+    /* Variables para mostrar hora y fecha */
+    const ahora = new Date();
+    const fecha = ahora.toLocaleDateString();
+    const hora = ahora.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+    
+    var myChart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: ['Temperatura del suelo', 'Humedad'], 
+            datasets: [{
+                label: `${nombre_cultivo}`, 
+                data: [0, 0], 
+                backgroundColor: [
+                    'rgba(255, 99, 132, 0.2)',
+                    'rgba(54, 162, 235, 0.2)'  
+                ],
+                borderColor: [
+                    'rgba(255, 99, 132, 1)',   
+                    'rgba(54, 162, 235, 1)'    
+                ],
+                borderWidth: 1 
+            }]
+        },
+        options: {
+            plugins: {
+                legend: {
+                    position: 'top',
+                },
+                title: {
+                    display: true,
+                    text: `${fecha} - ${hora}`
+                },
+                subtitle: {
+                    display: true,
+                    text: '',
+                    color: 'gray',
+                    font: {
+                        size: 14,
+                        family: 'calibri',
+                        weight: 'normal',
+                    },
+                    padding: {
+                        bottom: 10
+                    }
+                }
+            },
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
+        }
+    });
+    
+    function generarTemperaturaAl() {
+        return Math.floor(Math.random() * (30 - (-10) + 1)) + (-10);
+    }
+    
+    function generarHumedadAl() {
+        return Math.floor(Math.random() * (30 - (-10) + 1)) + (-10);
+    }
+    
+    function actualizarDatos() {
+        const temperatura = generarTemperaturaAl();
+        const humedad = generarHumedadAl();
+    
+        myChart.data.datasets[0].data[0] = temperatura; // Temperatura en la primera columna
+        myChart.data.datasets[0].data[1] = humedad;     // Humedad en la segunda columna
+    
+        myChart.options.plugins.subtitle.text = `Temperatura actual: ${temperatura}°C, Humedad actual: ${humedad}%`;
+    
+        myChart.update();
+    }
+    
+    actualizarDatos();
+    setInterval(actualizarDatos, 30000);
+
+
+    
+
+    
+
+    document.addEventListener('DOMContentLoaded', function () {
+        grid.on('resizestop', function (event, el) {
+            // Obtener el canvas dentro del widget
+            var canvas = el.querySelector('.grafica-canvas');
+            // Ajustar el tamaño del canvas para que coincida con el nuevo tamaño del contenedor
+            canvas.width = canvas.parentNode.clientWidth;
+            canvas.height = canvas.parentNode.clientHeight;
+            chart.resize();
+        });
+    });
+
+    return myChart;
+}
+
 
 function crearGrafica(cultivoData, grid) {
     var options = { width: 10, height: 10 }; // Opciones de tamaño para el widget de GridStack
@@ -107,101 +209,3 @@ function crearGrafica(cultivoData, grid) {
 
 }
 
-cargarDatosFirebase();
-
-// Función para generar la gráfica en un canvas específico
-function generarGraficaEnCanvas(canvas, cultivoData) {
-    var ctx = canvas.getContext('2d');
-    // Usar los datos del cultivo para generar la gráfica
-    var myChart = new Chart(ctx, {
-        type: 'bar',
-        data: {
-            labels: ['Temperatura del suelo', 'Humedad'], // Etiquetas para el eje X
-            datasets: [{
-                label: 'Datos del Cultivo', // Etiqueta para la leyenda
-                data: [cultivoData.Temperatura_suelo, cultivoData.Humedad], // Datos para el eje Y
-                backgroundColor: 'rgba(255, 99, 132, 0.2)', // Color de fondo de las barras
-                borderColor: 'rgba(255, 99, 132, 1)', // Color del borde de las barras
-                borderWidth: 1 // Ancho del borde de las barras
-            }]
-        },
-        options: {
-            scales: {
-                y: {
-                    beginAtZero: true // Comenzar el eje Y en cero
-                }
-            }
-        }
-    });
-
-
-    document.addEventListener('DOMContentLoaded', function () {
-        grid.on('resizestop', function (event, el) {
-            // Obtener el canvas dentro del widget
-            var canvas = el.querySelector('.grafica-canvas');
-            // Ajustar el tamaño del canvas para que coincida con el nuevo tamaño del contenedor
-            canvas.width = canvas.parentNode.clientWidth;
-            canvas.height = canvas.parentNode.clientHeight;
-            // Si estás utilizando Chart.js para la gráfica, redimensionar la gráfica
-            if (chart) {
-                chart.resize();
-            }
-        });
-    });
-}
-
-
-
-const cultivos = JSON.parse(`{{ cultivos|safe|escapejs }}`);
-  
-  function openModal(cultivoId) {
-    // Abre el modal
-    const modal = document.getElementById('editModal');
-    modal.style.display = 'block';
-
-    // Busca el cultivo por ID
-    const cultivo = cultivos.find(cultivo => cultivo.id === cultivoId);
-    
-    // Rellena el formulario con los datos del cultivo
-    document.getElementById('cultivoId').value = cultivoId;
-    document.getElementById('nombre').value = cultivo.data.nombre;
-    document.getElementById('ubicacion').value = cultivo.data.ubicacion;
-    document.getElementById('variedad').value = cultivo.data.variedad;
-    document.getElementById('temperatura_suelo').value = cultivo.data.Temperatura_suelo;
-    document.getElementById('humedad').value = cultivo.data.Humedad;
-  }
-
-  function closeModal() {
-    // Cierra el modal
-    const modal = document.getElementById('editModal');
-    modal.style.display = 'none';
-  }
-
-  function submitEdit() {
-    const form = document.getElementById('editForm');
-    const formData = new FormData(form);
-    
-    // Realiza la petición AJAX para enviar los datos
-    fetch('/editar-cultivo/', {
-      method: 'POST',
-      body: formData,
-      headers: {
-        'X-CSRFToken': '{{ csrf_token }}', // Asegúrate de pasar el CSRF token
-      },
-    })
-    .then(response => response.json())
-    .then(data => {
-      if (data.success) {
-        alert('Cultivo actualizado exitosamente.');
-        location.reload(); // Recarga la página para mostrar los cambios
-      } else {
-        alert('Error al actualizar el cultivo.');
-      }
-    })
-    .catch(error => {
-      console.error('Error:', error);
-    });
-
-    // Cierra el modal
-    closeModal();
-  }

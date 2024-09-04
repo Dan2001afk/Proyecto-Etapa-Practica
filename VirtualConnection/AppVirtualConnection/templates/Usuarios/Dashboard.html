@@ -129,6 +129,7 @@
             <span class="close" onclick="closeModal()">&times;</span>
             <div id="form-container">
                 <h1>Nuevo Cultivo</h1>
+                
                 <form method="post" enctype="multipart/form-data">
                     {% csrf_token %}
                     <input type="text" name="nombre" maxlength="100" required="" id="id_nombre" placeholder="Nombre">
@@ -140,10 +141,12 @@
                         <input type="text" name="variedad" maxlength="100" required="" id="id_variedad" placeholder="Variedad">
                     </p>
                     <p>
-                        <input type="number" name="temperatura_suelo" step="any" required="" id="id_temperatura_suelo" placeholder="Temperatura suelo">
+                        <p>La temperatura actual del suelo es:</p>
+                        <input type="number" name="temperatura_suelo" step="any" required="" id="id_temperatura_suelo" readonly>
                     </p>
                     <p>                                                                                                     
-                        <input type="number" name="humedad" step="any" required="" id="id_humedad" placeholder="Humedad">
+                        <p>La humedad actual del suelo es:</p>
+                        <input type="number" name="humedad" step="any" required="" id="id_humedad" readonly>
                     </p>
                     <p>
                         <input type="file" name="imagen" accept="image/*" required="" id="id_imagen">
@@ -181,9 +184,17 @@
             <div class="modal fade" id="InsertarGraficas" role="dialog"></div>
             <button onclick="openModal()">Agregar Nuevo Cultivo</button>
         </div>
+        <div class="text" id="ContenidoDas">
+        </div>
 
         <h2>Cultivos Registrados:</h2>
-        <div class="grid-stack"></div>
+        <div class="grid-stack">
+            
+        </div>
+        
+        
+
+
         <div class="card-container">
           {% for cultivo in cultivos %}
           <div class="card">
@@ -194,6 +205,7 @@
               <p>Variedad: {{ cultivo.data.variedad }}</p>
               <p>Temperatura suelo: {{ cultivo.data.Temperatura_suelo }}</p>
               <p>Humedad: {{ cultivo.data.Humedad }}</p>
+              
               <button class="boton" data-cultivo-id="{{ cultivo.id }}">Generar Grafica</button>
             </div>
           </div>
@@ -222,6 +234,30 @@
         
 
     </section>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            // Generar un número al azar entre -15 y 15 para la temperatura
+            function temperaturaAzar() {
+                var num = (Math.random() * 30) - 15;
+                return num.toFixed(2);  // Para mostrar 2 decimales
+            }
+
+            var temperatura = temperaturaAzar();
+            document.getElementById("id_temperatura_suelo").value = temperatura;
+        });
+
+        document.addEventListener("DOMContentLoaded", function() {
+            // Generar un número al azar entre -15 y 15 para la humedad
+            function humedadAzar() {
+                var num = (Math.random() * 30) - 15;
+                return num.toFixed(2);  // Para mostrar 2 decimales
+            }
+
+            var humedad = humedadAzar();
+            document.getElementById("id_humedad").value = humedad;
+        });
+        
+    </script>
     <script src="https://www.gstatic.com/firebasejs/8.3.0/firebase.js"></script>
     <script src='https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js'></script>
     <script src="{% static 'js/Dashboard.js' %}"></script>

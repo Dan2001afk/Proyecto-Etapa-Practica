@@ -53,19 +53,6 @@ canvas {
 }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
 h1 {
     text-align: center;
     margin: 20px 0;
@@ -154,7 +141,7 @@ h1 {
 /*estilos formulario para insertar grafica*/
 
 #form-container{
-    text-align: center;
+    text-align:initial;
     padding: 20px;
     background-color: rgb(255, 255, 255);
 
