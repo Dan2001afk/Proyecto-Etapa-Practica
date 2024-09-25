@@ -228,9 +228,7 @@ def ClimaBogota(request):
 from django.shortcuts import render
 from firebase_admin import firestore
 
-<<<<<<< HEAD
 
-=======
 # copiar direccion de la carpeta correcta
 RUTA_GUARDAR_JSON = os.path.join('C:/Users/Daniel Gonzalez/Desktop/Proyecto-Etapa-Practica/VirtualConnection/AppVirtualConnection/static/json')
 
@@ -278,4 +276,3 @@ def guardar_json(request):
             return JsonResponse({'error': f'Error al guardar el archivo: {str(e)}'}, status=500)
 
     return JsonResponse({'error': 'Método no permitido'}, status=405)
->>>>>>> 992540d4 (configuracion para que la graficas tomen los valores de las temperaturas desde archivo JSON)

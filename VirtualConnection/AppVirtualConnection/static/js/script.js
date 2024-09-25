@@ -43,8 +43,6 @@ modelSwitch.addEventListener("click", () => {
 });
 
 
-<<<<<<< HEAD
-
 let grid;
 
 function cargarDatosFirebase(params) {
@@ -209,6 +207,3 @@ function crearGrafica(cultivoData, grid) {
     generarGraficaEnCanvas(canvas, cultivoData); // Generar la gráfica en el canvas seleccionado con los datos del cultivo
 
 }
-
-=======
->>>>>>> 992540d4 (configuracion para que la graficas tomen los valores de las temperaturas desde archivo JSON)
