@@ -212,7 +212,7 @@ function iniciarGeneracionReportes(cultivoNombre) {
 
     // Iniciar el intervalo para los siguientes reportes
     const interval = setInterval(() => {
-        if (contador < 60) { // Generar los 59 reportes restantes
+        if (contador < 500000) { // Generar los 59 reportes restantes [ GENERADO A 2 AÑOS ]
             guardarJSON(cultivoNombre); // Guardar el JSON para el cultivo específico
             contador++;
         } else {
