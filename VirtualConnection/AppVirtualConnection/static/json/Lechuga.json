@@ -1,0 +1,374 @@
+[
+    {
+        "temperatura": "28.38",
+        "humedad": "65.95"
+    },
+    {
+        "temperatura": "19.78",
+        "humedad": "78.92"
+    },
+    {
+        "temperatura": "22.51",
+        "humedad": "46.79"
+    },
+    {
+        "temperatura": "20.91",
+        "humedad": "46.12",
+        "timestamp": "2024-09-25T19:30:21.932Z"
+    },
+    {
+        "temperatura": "22.35",
+        "humedad": "41.70",
+        "timestamp": "2024-09-25T19:31:22.678Z"
+    },
+    {
+        "temperatura": "15.80",
+        "humedad": "79.79",
+        "timestamp": "2024-09-25T19:32:22.679Z"
+    },
+    {
+        "temperatura": "15.47",
+        "humedad": "53.76",
+        "timestamp": "2024-09-25T19:33:28.942Z"
+    },
+    {
+        "temperatura": "16.78",
+        "humedad": "63.43",
+        "timestamp": "2024-09-25T19:34:29.678Z"
+    },
+    {
+        "temperatura": "23.43",
+        "humedad": "64.35",
+        "timestamp": "2024-09-25T19:35:28.943Z"
+    },
+    {
+        "temperatura": "16.17",
+        "humedad": "43.80",
+        "timestamp": "2024-09-25T19:36:29.678Z"
+    },
+    {
+        "temperatura": "24.26",
+        "humedad": "48.29",
+        "timestamp": "2024-09-25T19:37:29.678Z"
+    },
+    {
+        "temperatura": "29.30",
+        "humedad": "58.00",
+        "timestamp": "2024-09-25T19:42:26.840Z"
+    },
+    {
+        "temperatura": "16.31",
+        "humedad": "59.07",
+        "timestamp": "2024-09-25T19:43:27.678Z"
+    },
+    {
+        "temperatura": "17.77",
+        "humedad": "56.16",
+        "timestamp": "2024-09-25T19:44:27.684Z"
+    },
+    {
+        "temperatura": "21.35",
+        "humedad": "75.08",
+        "timestamp": "2024-09-25T19:45:27.683Z"
+    },
+    {
+        "temperatura": "20.51",
+        "humedad": "54.50",
+        "timestamp": "2024-09-25T20:13:29.746Z"
+    },
+    {
+        "temperatura": "20.88",
+        "humedad": "54.17",
+        "timestamp": "2024-09-25T20:14:29.748Z"
+    },
+    {
+        "temperatura": "22.86",
+        "humedad": "53.17",
+        "timestamp": "2024-09-25T20:15:29.747Z"
+    },
+    {
+        "temperatura": "29.31",
+        "humedad": "47.16",
+        "timestamp": "2024-09-25T20:16:30.677Z"
+    },
+    {
+        "temperatura": "26.94",
+        "humedad": "49.22",
+        "timestamp": "2024-09-25T20:17:30.678Z"
+    },
+    {
+        "temperatura": "19.14",
+        "humedad": "54.02",
+        "timestamp": "2024-09-25T20:19:01.944Z"
+    },
+    {
+        "temperatura": "18.49",
+        "humedad": "62.69",
+        "timestamp": "2024-09-25T20:19:29.747Z"
+    },
+    {
+        "temperatura": "16.13",
+        "humedad": "74.58",
+        "timestamp": "2024-09-25T20:20:29.747Z"
+    },
+    {
+        "temperatura": "28.98",
+        "humedad": "69.15",
+        "timestamp": "2024-09-25T20:21:29.747Z"
+    },
+    {
+        "temperatura": "16.64",
+        "humedad": "54.55",
+        "timestamp": "2024-09-25T20:22:29.748Z"
+    },
+    {
+        "temperatura": "28.80",
+        "humedad": "40.71",
+        "timestamp": "2024-09-25T20:23:29.747Z"
+    },
+    {
+        "temperatura": "15.77",
+        "humedad": "44.37",
+        "timestamp": "2024-09-25T20:24:29.748Z"
+    },
+    {
+        "temperatura": "23.43",
+        "humedad": "72.02",
+        "timestamp": "2024-09-25T20:25:29.748Z"
+    },
+    {
+        "temperatura": "18.03",
+        "humedad": "62.67",
+        "timestamp": "2024-09-25T20:26:29.748Z"
+    },
+    {
+        "temperatura": "20.39",
+        "humedad": "64.06",
+        "timestamp": "2024-09-25T20:27:29.749Z"
+    },
+    {
+        "temperatura": "21.58",
+        "humedad": "58.08",
+        "timestamp": "2024-09-25T20:28:29.747Z"
+    },
+    {
+        "temperatura": "18.13",
+        "humedad": "52.02",
+        "timestamp": "2024-09-25T20:29:29.747Z"
+    },
+    {
+        "temperatura": "19.59",
+        "humedad": "70.47",
+        "timestamp": "2024-09-25T20:30:29.747Z"
+    },
+    {
+        "temperatura": "22.38",
+        "humedad": "79.20",
+        "timestamp": "2024-09-25T20:31:29.747Z"
+    },
+    {
+        "temperatura": "28.90",
+        "humedad": "75.22",
+        "timestamp": "2024-09-25T20:32:29.747Z"
+    },
+    {
+        "temperatura": "15.00",
+        "humedad": "78.26",
+        "timestamp": "2024-09-25T20:33:29.747Z"
+    },
+    {
+        "temperatura": "27.73",
+        "humedad": "69.12",
+        "timestamp": "2024-09-25T20:34:29.747Z"
+    },
+    {
+        "temperatura": "20.51",
+        "humedad": "43.48",
+        "timestamp": "2024-09-25T20:35:29.747Z"
+    },
+    {
+        "temperatura": "21.07",
+        "humedad": "46.13",
+        "timestamp": "2024-09-25T20:36:29.747Z"
+    },
+    {
+        "temperatura": "26.17",
+        "humedad": "74.70",
+        "timestamp": "2024-09-25T20:37:29.748Z"
+    },
+    {
+        "temperatura": "29.14",
+        "humedad": "68.60",
+        "timestamp": "2024-09-25T20:38:29.748Z"
+    },
+    {
+        "temperatura": "26.28",
+        "humedad": "66.15",
+        "timestamp": "2024-09-25T20:39:29.749Z"
+    },
+    {
+        "temperatura": "28.50",
+        "humedad": "71.80",
+        "timestamp": "2024-09-25T20:40:29.747Z"
+    },
+    {
+        "temperatura": "21.19",
+        "humedad": "58.74",
+        "timestamp": "2024-09-25T20:41:29.747Z"
+    },
+    {
+        "temperatura": "16.55",
+        "humedad": "54.78",
+        "timestamp": "2024-09-25T20:42:29.746Z"
+    },
+    {
+        "temperatura": "17.42",
+        "humedad": "40.25",
+        "timestamp": "2024-09-25T20:43:29.747Z"
+    },
+    {
+        "temperatura": "15.12",
+        "humedad": "46.52",
+        "timestamp": "2024-09-25T20:44:29.747Z"
+    },
+    {
+        "temperatura": "28.78",
+        "humedad": "52.35",
+        "timestamp": "2024-09-25T20:45:29.748Z"
+    },
+    {
+        "temperatura": "16.57",
+        "humedad": "78.69",
+        "timestamp": "2024-09-25T20:46:29.748Z"
+    },
+    {
+        "temperatura": "24.91",
+        "humedad": "75.80",
+        "timestamp": "2024-09-25T20:47:29.748Z"
+    },
+    {
+        "temperatura": "27.71",
+        "humedad": "54.99",
+        "timestamp": "2024-09-25T20:48:29.747Z"
+    },
+    {
+        "temperatura": "25.19",
+        "humedad": "61.75",
+        "timestamp": "2024-09-25T20:49:29.747Z"
+    },
+    {
+        "temperatura": "28.58",
+        "humedad": "76.55",
+        "timestamp": "2024-09-25T20:50:29.747Z"
+    },
+    {
+        "temperatura": "17.84",
+        "humedad": "56.21",
+        "timestamp": "2024-09-25T20:51:29.747Z"
+    },
+    {
+        "temperatura": "20.86",
+        "humedad": "40.10",
+        "timestamp": "2024-09-25T20:52:29.747Z"
+    },
+    {
+        "temperatura": "21.37",
+        "humedad": "79.50",
+        "timestamp": "2024-09-25T20:53:29.748Z"
+    },
+    {
+        "temperatura": "24.70",
+        "humedad": "53.65",
+        "timestamp": "2024-09-25T20:54:29.747Z"
+    },
+    {
+        "temperatura": "20.84",
+        "humedad": "59.83",
+        "timestamp": "2024-09-25T20:55:29.746Z"
+    },
+    {
+        "temperatura": "22.00",
+        "humedad": "57.87",
+        "timestamp": "2024-09-25T20:56:29.747Z"
+    },
+    {
+        "temperatura": "16.87",
+        "humedad": "68.66",
+        "timestamp": "2024-09-25T20:57:29.748Z"
+    },
+    {
+        "temperatura": "25.27",
+        "humedad": "46.87",
+        "timestamp": "2024-09-25T20:58:29.748Z"
+    },
+    {
+        "temperatura": "16.29",
+        "humedad": "40.36",
+        "timestamp": "2024-09-25T20:59:29.747Z"
+    },
+    {
+        "temperatura": "17.06",
+        "humedad": "58.91",
+        "timestamp": "2024-09-25T21:00:29.747Z"
+    },
+    {
+        "temperatura": "23.93",
+        "humedad": "40.88",
+        "timestamp": "2024-09-25T21:01:29.747Z"
+    },
+    {
+        "temperatura": "28.45",
+        "humedad": "78.78",
+        "timestamp": "2024-09-25T21:02:29.748Z"
+    },
+    {
+        "temperatura": "22.79",
+        "humedad": "77.46",
+        "timestamp": "2024-09-25T21:03:29.747Z"
+    },
+    {
+        "temperatura": "20.08",
+        "humedad": "77.74",
+        "timestamp": "2024-09-25T21:04:29.747Z"
+    },
+    {
+        "temperatura": "19.50",
+        "humedad": "75.81",
+        "timestamp": "2024-09-25T21:05:30.678Z"
+    },
+    {
+        "temperatura": "16.39",
+        "humedad": "58.32",
+        "timestamp": "2024-09-25T21:06:29.747Z"
+    },
+    {
+        "temperatura": "22.47",
+        "humedad": "68.29",
+        "timestamp": "2024-09-25T21:07:30.677Z"
+    },
+    {
+        "temperatura": "19.28",
+        "humedad": "40.62",
+        "timestamp": "2024-09-25T21:08:29.747Z"
+    },
+    {
+        "temperatura": "17.17",
+        "humedad": "65.21",
+        "timestamp": "2024-09-25T21:09:29.747Z"
+    },
+    {
+        "temperatura": "27.67",
+        "humedad": "65.70",
+        "timestamp": "2024-09-25T21:10:30.678Z"
+    },
+    {
+        "temperatura": "25.19",
+        "humedad": "59.87",
+        "timestamp": "2024-09-25T21:12:27.679Z"
+    },
+    {
+        "temperatura": "21.65",
+        "humedad": "45.31",
+        "timestamp": "2024-09-25T21:13:30.678Z"
+    }
+]

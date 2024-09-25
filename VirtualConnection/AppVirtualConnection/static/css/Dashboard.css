@@ -297,3 +297,22 @@ button:hover {
     text-align: center;
   }
   
+
+
+
+
+
+
+
+
+/*Animacion del boton Generar Grafica*/
+
+.boton {
+  transition: opacity 0.5s ease, transform 0.5s ease; /* Añade una transición para la opacidad y escala */
+}
+
+.boton.hidden {
+  opacity: 0; /* Hace que el botón sea completamente transparente */
+  transform: scale(0.8); /* Reduce un poco el tamaño */
+  pointer-events: none; /* Desactiva eventos del ratón */
+}

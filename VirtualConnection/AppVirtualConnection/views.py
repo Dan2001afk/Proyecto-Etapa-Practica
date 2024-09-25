@@ -228,4 +228,54 @@ def ClimaBogota(request):
 from django.shortcuts import render
 from firebase_admin import firestore
 
+<<<<<<< HEAD
 
+=======
+# copiar direccion de la carpeta correcta
+RUTA_GUARDAR_JSON = os.path.join('C:/Users/Daniel Gonzalez/Desktop/Proyecto-Etapa-Practica/VirtualConnection/AppVirtualConnection/static/json')
+
+
+@csrf_exempt
+def guardar_json(request):
+    if request.method == 'POST':
+        try:
+            # Obtener los datos enviados desde el cliente
+            datos = json.loads(request.body)
+            cultivo_id = datos.get('cultivo')
+            temperatura = datos.get('temperatura')
+            humedad = datos.get('humedad')
+            timestamp = datos.get('timestamp')
+
+            if not cultivo_id:
+                return JsonResponse({'error': 'Falta el ID del cultivo'}, status=400)
+
+            # Crear o actualizar el archivo JSON para el cultivo
+            nombre_archivo = f"{cultivo_id}.json"
+            ruta_completa = os.path.join(RUTA_GUARDAR_JSON, nombre_archivo)
+
+            # Cargar el contenido existente del archivo (si lo hay)
+            if os.path.exists(ruta_completa):
+                with open(ruta_completa, 'r') as archivo_json:
+                    datos_existentes = json.load(archivo_json)
+            else:
+                datos_existentes = []
+
+            # Agregar el nuevo reporte al JSON
+            nuevo_reporte = {
+                'temperatura': temperatura,
+                'humedad': humedad,
+                'timestamp': timestamp
+            }
+            datos_existentes.append(nuevo_reporte)
+
+            # Guardar el archivo JSON actualizado
+            with open(ruta_completa, 'w') as archivo_json:
+                json.dump(datos_existentes, archivo_json, indent=4)
+
+            return JsonResponse({'mensaje': 'Reporte guardado correctamente'}, status=200)
+
+        except Exception as e:
+            return JsonResponse({'error': f'Error al guardar el archivo: {str(e)}'}, status=500)
+
+    return JsonResponse({'error': 'Método no permitido'}, status=405)
+>>>>>>> 992540d4 (configuracion para que la graficas tomen los valores de las temperaturas desde archivo JSON)

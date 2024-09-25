@@ -43,6 +43,7 @@ modelSwitch.addEventListener("click", () => {
 });
 
 
+<<<<<<< HEAD
 
 let grid;
 
@@ -209,3 +210,5 @@ function crearGrafica(cultivoData, grid) {
 
 }
 
+=======
+>>>>>>> 992540d4 (configuracion para que la graficas tomen los valores de las temperaturas desde archivo JSON)
