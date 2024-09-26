@@ -111,19 +111,28 @@ from .forms import CultivoForm  # Importa tu formulario aquí
 @login_required
 def Dashboard(request):
     user_info = request.session.get('user_info')
-    db = firestore.client()
-    cultivos_ref = db.collection('Cultivos')
-    cultivos_docs = cultivos_ref.get()
-    cultivos_data = []
-    for cultivo_doc in cultivos_docs:
-        cultivo_data = cultivo_doc.to_dict()
-        cultivo_id = cultivo_doc.id
-        imagen_url = cultivo_data.get('imagen_url', '')  # Obtener la URL de la imagen del documento
-        print("url de la imagen", imagen_url)
-        cultivo_data['imagen_url'] = imagen_url  # Agregar la URL de la imagen al diccionario de datos del cultivo
-        cultivos_data.append({'id': cultivo_id, 'data': cultivo_data})  # Agregar el ID del documento y los datos del cultivo a la lista
-        print("Datos del cultivo", cultivos_data)
+    
     if user_info:
+        user_uid = user_info.get('uid')  # Obtener el UID del usuario autenticado
+        
+        print("usuario autenticado",user_uid)
+
+        db = firestore.client()
+        
+        # Consulta los cultivos filtrados por el UID del usuario autenticado
+        cultivos_ref = db.collection('Cultivos').where('user_uid', '==', user_uid)
+        cultivos_docs = cultivos_ref.get()
+        
+        cultivos_data = []
+        for cultivo_doc in cultivos_docs:
+            cultivo_data = cultivo_doc.to_dict()
+            cultivo_id = cultivo_doc.id
+            imagen_url = cultivo_data.get('imagen_url', '')  # Obtener la URL de la imagen del documento
+            print("url de la imagen", imagen_url)
+            cultivo_data['imagen_url'] = imagen_url  # Agregar la URL de la imagen al diccionario de datos del cultivo
+            cultivos_data.append({'id': cultivo_id, 'data': cultivo_data})  # Agregar el ID del documento y los datos del cultivo a la lista
+            print("Datos del cultivo", cultivos_data)
+        
         if request.method == 'POST':
             form = CultivoForm(request.POST, request.FILES)
             if form.is_valid():
@@ -133,7 +142,8 @@ def Dashboard(request):
                     'ubicacion': form.cleaned_data['ubicacion'],
                     'variedad': form.cleaned_data['variedad'],
                     'Temperatura_suelo': form.cleaned_data['temperatura_suelo'],
-                    'Humedad': form.cleaned_data['humedad']
+                    'Humedad': form.cleaned_data['humedad'],
+                    'user_uid': user_uid  # Asociar el cultivo con el UID del usuario autenticado
                 }
                 
                 # Verificar si se ha subido una imagen
@@ -151,7 +161,6 @@ def Dashboard(request):
                     nuevo_cultivo['imagen_url'] = imagen_url
                 
                 # Guardar el nuevo cultivo en la base de datos Firestore
-                db = firestore.client()
                 db.collection('Cultivos').add(nuevo_cultivo)
                 
                 return redirect('Dashboard')  # Redirigir al dashboard después de guardar el formulario
@@ -159,7 +168,7 @@ def Dashboard(request):
         else:
             form = CultivoForm()
         
-        return render(request, 'Usuarios/Dashboard.html', {'cultivos': cultivos_data,'user_info': user_info, 'form': form})
+        return render(request, 'Usuarios/Dashboard.html', {'cultivos': cultivos_data, 'user_info': user_info, 'form': form})
     
     return redirect('login')
 

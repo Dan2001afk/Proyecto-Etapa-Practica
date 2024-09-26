@@ -28,7 +28,7 @@ def login_firebase(request):
 
         if response.status_code == 200:
             user_data = response.json()
-            user_uid = user_data.get('localId')
+            user_uid = user_data.get('localId')  # Aquí obtienes el UID del usuario
             
             # Consulta la colección 'users' en Firestore para obtener el nombre de usuario
             db = firestore.client()
@@ -37,6 +37,7 @@ def login_firebase(request):
             
             if user_doc.exists:
                 user_info = {
+                    'uid': user_uid,  # Asegúrate de incluir el UID aquí
                     'username': user_doc.get('username'),
                     'photo_url': user_data.get('photoUrl', '/static/perfil.png') 
                 }
@@ -45,14 +46,14 @@ def login_firebase(request):
                 print("user_info:", user_info)
                 
                 # Redirige a la página de dashboard después del inicio de sesión
-                #return render(request, 'Usuarios/Dashboard.html',{'user_info':user_info})
-                return redirect ('Dashboard')
+                return redirect('Dashboard')
             else:
                 error_message = "Datos del usuario no encontrados en la base de datos"
         else:
             error_message = response.json().get('error', {}).get('message', 'Error de autenticación')
 
     return render(request, 'Autenticacion/IniciarSesion.html', {'error_message': error_message})
+
 
 
 # Decorador personalizado para verificar la autenticación del usuario
