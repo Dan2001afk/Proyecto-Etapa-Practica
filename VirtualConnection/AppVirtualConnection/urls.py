@@ -35,6 +35,9 @@ urlpatterns=[
         #Guardar Json
         path('guardar-json/', guardar_json, name='guardar_json'),
         
-        
+        #cultivos
+        path('cultivos/actualizar/<str:cultivo_id>/', actualizar_cultivo, name='actualizar_cultivo'),
+        path('cultivos/eliminar/<str:cultivo_id>/', eliminar_cultivo, name='eliminar_cultivo'),
+
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT) 

@@ -1,7 +1,6 @@
 import time
 from typing import Any
 from django.shortcuts import render, redirect
-
 from AppVirtualConnection.models import Alerta
 from .forms import CultivoForm
 from AppVirtualConnection.Cultivos import guardar_cultivo
@@ -287,3 +286,62 @@ def guardar_json(request):
             return JsonResponse({'error': f'Error al guardar el archivo: {str(e)}'}, status=500)
 
     return JsonResponse({'error': 'Método no permitido'}, status=405)
+
+
+
+
+
+
+#ACTUALIZA CULTIVOS
+def actualizar_cultivo(request, cultivo_id):
+    
+    cultivo_ref = db.collection('Cultivos').document(cultivo_id)
+    
+    if request.method == 'POST':
+        # Crear un formulario con los datos enviados
+        form = CultivoForm(request.POST, request.FILES)
+        
+        if form.is_valid():
+            # Actualizar los campos del cultivo
+            cultivo_ref.update({
+                'nombre': form.cleaned_data['nombre'],
+                'ubicacion': form.cleaned_data['ubicacion'],
+                'variedad': form.cleaned_data['variedad'],
+                'temperatura_suelo': form.cleaned_data['temperatura_suelo'],
+                'humedad': form.cleaned_data['humedad'],
+            })
+
+            
+            if 'imagen' in request.FILES:
+                imagen = request.FILES['imagen']
+                bucket = storage.bucket()
+                blob = bucket.blob(imagen.name)
+                blob.upload_from_file(imagen)
+
+                
+                imagen_url = blob.public_url
+
+                
+                cultivo_ref.update({
+                    'imagen_url': imagen_url,
+                })
+
+            # Devuelve una respuesta JSON para manejar el cierre del modal y actualizar la vista
+            return JsonResponse({'success': True})
+
+        # Si el formulario no es válido, imprime los errores
+        print(form.errors)
+
+    # Si no es una solicitud POST, devolver un error
+    return JsonResponse({'success': False, 'error': 'Invalid request'}, status=400)
+
+
+def eliminar_cultivo(request, cultivo_id):
+    if request.method == 'DELETE':
+        # Elimina el cultivo de Firestore
+        cultivo_ref = db.collection('Cultivos').document(cultivo_id)
+        cultivo_ref.delete()  # Elimina el documento
+
+        return JsonResponse({'success': True})
+
+    return JsonResponse({'success': False, 'error': 'Invalid request'}, status=400)

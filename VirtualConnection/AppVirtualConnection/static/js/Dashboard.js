@@ -147,7 +147,7 @@ function generarGraficaEnCanvas(canvas, cultivoData) {
     // Cargar los datos inmediatamente al generar la gráfica
     actualizarDatos();
     
-    // Actualizar los datos cada 30 segundos
+    // Actualizar los datos cada 30 segundos PARAMETRO ACTUALIZACION DE GRAFICA METODO GET
     setInterval(actualizarDatos, 60000);
 
     return myChart;
@@ -170,6 +170,17 @@ function simularLecturaTemperatura() {
 function simularLecturaHumedad() {
     return (Math.random() * (80 - 40) + 40).toFixed(2);
 }
+
+document.addEventListener("DOMContentLoaded", function() {
+    // Obtener temperatura y humedad utilizando las funciones de simulación
+    var temperatura = simularLecturaTemperatura();
+    var humedad = simularLecturaHumedad();
+
+    // Asignar los valores a los campos del formulario
+    document.getElementById("id_temperatura_suelo").value = temperatura;
+    document.getElementById("id_humedad").value = humedad;
+});
+
 
 // Función para crear un JSON con los datos y enviarlos al servidor
 function guardarJSON(cultivoNombre) {
@@ -206,7 +217,7 @@ function guardarJSON(cultivoNombre) {
 function iniciarGeneracionReportes(cultivoNombre) {
     let contador = 0;
 
-    // Generar el primer reporte inmediatamente
+    // Generar el primer reporte inmediatamente GENERACION DE REPORTE METODO POST
     guardarJSON(cultivoNombre); 
     contador++;
 
@@ -248,5 +259,112 @@ document.querySelectorAll('.boton').forEach((boton) => {
         console.log(cultivoNombre); // Para verificar el nombre del cultivo
     });
 });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*ACTUALIZAR CULTIVOS*/
+
+
+document.getElementById('formActualizarCultivo').addEventListener('submit', function(event) {
+    event.preventDefault();  // Evitar el envío normal del formulario
+
+    const formData = new FormData(this);  // Obtener los datos del formulario
+
+    fetch(this.action, {
+        method: 'POST',
+        body: formData,
+        headers: {
+            'X-CSRFToken': '{{ csrf_token }}'  // Asegúrate de incluir el token CSRF
+        }
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            alert('Cultivo actualizado con éxito');
+            location.reload(); // Recargar la página para ver los cambios
+        } else {
+            alert('Error al actualizar el cultivo: ' + data.error);
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        alert('Ocurrió un error al actualizar el cultivo.');
+    });
+});
+
+
+
+
+
+
+
+
+
+
+
+
+/*ELIMINAR CULTIVOS*/
+
+
+
+function eliminarCultivo(cultivoId) {
+    if (confirm("¿Estás seguro de que quieres eliminar este cultivo?")) {
+        const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');  // Obtener el token CSRF
+        
+        fetch(`/cultivos/eliminar/${cultivoId}/`, {
+            method: 'DELETE',
+            headers: {
+                'X-CSRFToken': csrfToken  // Incluir el token CSRF
+            }
+        })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Error al eliminar el cultivo');
+            }
+            return response.json();
+        })
+        .then(data => {
+            if (data.success) {
+                alert('Cultivo eliminado con éxito');
+                location.reload();  // Recarga la página para ver los cambios
+            } else {
+                alert('Error al eliminar el cultivo: ' + data.error);
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            alert('Ocurrió un error al eliminar el cultivo.');
+        });
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 

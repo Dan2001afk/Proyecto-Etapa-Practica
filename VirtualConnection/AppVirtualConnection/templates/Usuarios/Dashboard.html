@@ -5,6 +5,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="csrf-token" content="{{ csrf_token }}">
     <!-- archivos css -->
     <link rel="stylesheet" href="{% static 'css/header.css' %}">
     <link rel="stylesheet" href="{% static 'css/Dashboard.css' %}">
@@ -196,71 +197,83 @@
 
 
         <div class="card-container">
-          {% for cultivo in cultivos %}
-          <div class="card">
-            <img src="{{ cultivo.data.imagen_url }}" alt="Cultivo" class="cultivo-img">
-            <div class="container">
-              <h4><b>Nombre del Cultivo: {{ cultivo.data.nombre }}</b></h4>
-              <p>Ubicacion: {{ cultivo.data.ubicacion }}</p>
-              <p>Variedad: {{ cultivo.data.variedad }}</p>
-              <p>Temperatura suelo: {{ cultivo.data.Temperatura_suelo }}</p>
-              <p>Humedad: {{ cultivo.data.Humedad }}</p>
-              
-              <button id="data-cultivo-nombre" class="boton" data-cultivo-id="{{ cultivo.id }}" data-cultivo-nombre="{{ cultivo.data.nombre }}">Generar Gráfica</button>
+            {% for cultivo in cultivos %}
+            <div class="card">
+                <img src="{{ cultivo.data.imagen_url }}" alt="Cultivo" class="cultivo-img">
+                <div class="container">
+                    <h4><b>Nombre del Cultivo: {{ cultivo.data.nombre }}</b></h4>
+                    <p>Ubicación: {{ cultivo.data.ubicacion }}</p>
+                    <p>Variedad: {{ cultivo.data.variedad }}</p>
+                    <p>Temperatura suelo: {{ cultivo.data.Temperatura_suelo }}</p>
+                    <p>Humedad: {{ cultivo.data.Humedad }}</p>
+                    
+                    <button id="data-cultivo-nombre" class="boton" data-cultivo-id="{{ cultivo.id }}" data-cultivo-nombre="{{ cultivo.data.nombre }}">Generar Gráfica</button>
+                    
+                    <button type="button" class="btn btn-primary" onclick="cargarDatosCultivo('{{ cultivo.id }}', '{{ cultivo.data.nombre }}', '{{ cultivo.data.ubicacion }}', '{{ cultivo.data.variedad }}')">
+                        Actualizar Cultivo
+                    </button>
+
+                    <button class="boton-eliminar" data-cultivo-id="{{ cultivo.id }}" onclick="eliminarCultivo('{{ cultivo.id }}')">Eliminar Cultivo</button>
+
+
+                </div>
             </div>
-          </div>
-          {% endfor %}
+            {% endfor %}
         </div>
+        
 
         <canvas id="miGrafico"></canvas>
 
-<!--             
-    <form id="formulario">
-        <label for="nombre">Nombre:</label>
-        <input type="text" id="nombre">
-        
-        <label for="ubicacion">Ubicación:</label>
-        <input type="text" id="ubicacion">
-        
-        <label for="variedad">Variedad:</label>
-        <input type="text" id="variedad">
-        
-        <label for="Temperatura_suelo">Temperatura del suelo:</label>
-        <input type="number" id="Temperatura_suelo">
-        
-        <label for="Humedad">Humedad:</label>
-        <input type="number" id="Humedad">
-    </form> -->
-        
+
+
+
+        <!-- Modal para actualizar cultivo -->
+        <div id="modalActualizarCultivo" class="modal" style="display: none;">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5>Actualizar Cultivo</h5>
+                    <button onclick="cerrarModal()">Cerrar</button>
+                </div>
+                <div class="modal-body">
+                    <form id="formActualizarCultivo" method="POST" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        <div class="mb-3">
+                            <label for="nombre" class="form-label">Nombre:</label>
+                            <input type="text" id="nombre" name="nombre" class="form-control" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="ubicacion" class="form-label">Ubicación:</label>
+                            <input type="text" id="ubicacion" name="ubicacion" class="form-control" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="variedad" class="form-label">Variedad:</label>
+                            <input type="text" id="variedad" name="variedad" class="form-control" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="temperatura_suelo" class="form-label">Temperatura Suelo:</label>
+                            <input type="number" id="temperatura_suelo" name="temperatura_suelo" class="form-control" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="humedad" class="form-label">Humedad:</label>
+                            <input type="number" id="humedad" name="humedad" class="form-control" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="imagen" class="form-label">Nueva Imagen:</label>
+                            <input type="file" id="imagen" name="imagen" class="form-control">
+                        </div>
+                        <div class="mb-3">
+                            <button type="submit" class="btn btn-primary">Actualizar Cultivo</button>
+                        </div>
+                    </form>                    
+                </div>
+            </div>
+        </div> 
 
     </section>
-    <script>
-        document.addEventListener("DOMContentLoaded", function() {
-            // Generar un número al azar entre -15 y 15 para la temperatura
-            function temperaturaAzar() {
-                var num = (Math.random() * 30) - 15;
-                return num.toFixed(2);  // Para mostrar 2 decimales
-            }
-
-            var temperatura = temperaturaAzar();
-            document.getElementById("id_temperatura_suelo").value = temperatura;
-        });
-
-        document.addEventListener("DOMContentLoaded", function() {
-            // Generar un número al azar entre -15 y 15 para la humedad
-            function humedadAzar() {
-                var num = (Math.random() * 30) - 15;
-                return num.toFixed(2);  // Para mostrar 2 decimales
-            }
-
-            var humedad = humedadAzar();
-            document.getElementById("id_humedad").value = humedad;
-        });
-        
-    </script>
     <script src="https://www.gstatic.com/firebasejs/8.3.0/firebase.js"></script>
     <script src='https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js'></script>
     <script src="{% static 'js/Dashboard.js' %}"></script>
+    <script src="{% static 'js/ScriptFormularios.js' %}"></script>
     <script src="{% static 'js/script.js' %}"></script>
 
 </body>
