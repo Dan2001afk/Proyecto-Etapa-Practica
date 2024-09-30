@@ -1,3 +1,4 @@
+import time
 from typing import Any
 from django.shortcuts import render, redirect
 
@@ -15,6 +16,8 @@ from django.views.decorators.csrf import csrf_exempt
 import json
 from .firebase_config import *
 from firebase_admin import storage
+import os
+from django.http import JsonResponse
 
 #Plantillas Publicas
 
@@ -236,7 +239,6 @@ def ClimaBogota(request):
 
 from django.shortcuts import render
 from firebase_admin import firestore
-
 
 # copiar direccion de la carpeta correcta
 RUTA_GUARDAR_JSON = os.path.join('C:/Users/Daniel Gonzalez/Desktop/Proyecto-Etapa-Practica/VirtualConnection/AppVirtualConnection/static/json')

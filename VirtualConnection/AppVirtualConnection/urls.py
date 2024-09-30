@@ -7,6 +7,7 @@ from django.conf import settings
 from django.conf.urls.static import static 
 
 
+
 urlpatterns=[
         
         # Vistas Publicas
@@ -31,7 +32,8 @@ urlpatterns=[
         path('reset-password/', Restablecer_Contraseña, name='Reset-passwordPage'),
         path('logout/', logout_view, name='logout'),  # URL para cerrar sesión
         
-        #Insertar Cultivos
+        #Guardar Json
+        path('guardar-json/', guardar_json, name='guardar_json'),
         
         
 
