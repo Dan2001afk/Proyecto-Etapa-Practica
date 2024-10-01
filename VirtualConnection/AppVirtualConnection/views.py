@@ -1,6 +1,5 @@
 import time
 from typing import Any
-from django.shortcuts import render, redirect
 from AppVirtualConnection.models import Alerta
 from .forms import CultivoForm
 from AppVirtualConnection.Cultivos import guardar_cultivo
@@ -17,6 +16,12 @@ from .firebase_config import *
 from firebase_admin import storage
 import os
 from django.http import JsonResponse
+import firebase_admin
+from firebase_admin import credentials, storage
+from django.shortcuts import redirect, render
+from firebase_admin import firestore
+from .forms import CultivoForm  # Importa tu formulario aquí
+from decouple import config
 
 #Plantillas Publicas
 
@@ -99,21 +104,13 @@ def logout_view(request):
 #------------------------------------------------------PRUEBAS---------------------------------------------------------
 
 
-from firebase_admin import storage
-
-import firebase_admin
-from firebase_admin import credentials, storage
-from django.shortcuts import redirect, render
-from .forms import CultivoForm
-
-from firebase_admin import firestore
-from django.shortcuts import render, redirect
-from .forms import CultivoForm  # Importa tu formulario aquí
 
 @login_required
 def Dashboard(request):
     user_info = request.session.get('user_info')
-    
+
+    intervalo_generacion_reportes = config('INTERVALO_GENERACION_REPORTES', default=60000, cast=int)  # valor por defecto
+    intervalo_actualizacion_grafica = config('INTERVALO_ACTUALIZACION_GRAFICA', default=5000, cast=int)  # valor por defecto
     if user_info:
         user_uid = user_info.get('uid')  # Obtener el UID del usuario autenticado
         
@@ -170,7 +167,11 @@ def Dashboard(request):
         else:
             form = CultivoForm()
         
-        return render(request, 'Usuarios/Dashboard.html', {'cultivos': cultivos_data, 'user_info': user_info, 'form': form})
+        return render(request, 'Usuarios/Dashboard.html', {'cultivos': cultivos_data, 
+            'user_info': user_info, 
+            'form': form, 
+            'intervalo_generacion_reportes': intervalo_generacion_reportes,
+            'intervalo_actualizacion_grafica': intervalo_actualizacion_grafica})
     
     return redirect('login')
 

@@ -1,4 +1,3 @@
-
 let grid;
 
 function cargarDatosFirebase(params) {
@@ -116,7 +115,7 @@ function generarGraficaEnCanvas(canvas, cultivoData) {
     function actualizarDatos() {
         // Ruta del archivo JSON basado en el nombre del cultivo
         const url = `/static/json/${nombre_cultivo}.json`; 
-        
+    
         fetch(url)
             .then(response => {
                 if (!response.ok) {
@@ -127,7 +126,7 @@ function generarGraficaEnCanvas(canvas, cultivoData) {
             .then(data => {
                 // Supongamos que el JSON tiene un formato como [{ temperatura: X, humedad: Y }]
                 const ultimoReporte = data[data.length - 1]; // Obtener el último reporte
-
+    
                 const temperatura = ultimoReporte.temperatura;
                 const humedad = ultimoReporte.humedad;
     
@@ -147,8 +146,8 @@ function generarGraficaEnCanvas(canvas, cultivoData) {
     // Cargar los datos inmediatamente al generar la gráfica
     actualizarDatos();
     
-    // Actualizar los datos cada 30 segundos PARAMETRO ACTUALIZACION DE GRAFICA METODO GET
-    setInterval(actualizarDatos, 60000);
+    // Actualizar los datos cada intervalo definido en la variable de entorno
+    setInterval(actualizarDatos, INTERVALO_ACTUALIZACION_GRAFICA);
 
     return myChart;
 }
@@ -217,20 +216,20 @@ function guardarJSON(cultivoNombre) {
 function iniciarGeneracionReportes(cultivoNombre) {
     let contador = 0;
 
-    // Generar el primer reporte inmediatamente GENERACION DE REPORTE METODO POST
-    guardarJSON(cultivoNombre); 
+    // Generar el primer reporte inmediatamente
+    guardarJSON(cultivoNombre);
     contador++;
 
     // Iniciar el intervalo para los siguientes reportes
     const interval = setInterval(() => {
-        if (contador < 500000) { // Generar los 59 reportes restantes [ GENERADO A 2 AÑOS ]
-            guardarJSON(cultivoNombre); // Guardar el JSON para el cultivo específico
+        if (contador < 500000) {
+            guardarJSON(cultivoNombre);
             contador++;
         } else {
-            clearInterval(interval); // Detener el intervalo después de 60 reportes
+            clearInterval(interval);
             console.log('Generación de reportes finalizada para:', cultivoNombre);
         }
-    }, 60000); // Cada 60 segundos
+    }, INTERVALO_GENERACION_REPORTES); // Usar variable de entorno
 }
 
   
