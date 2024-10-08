@@ -241,7 +241,7 @@ from django.shortcuts import render
 from firebase_admin import firestore
 
 # copiar direccion de la carpeta correcta
-RUTA_GUARDAR_JSON = os.path.join('C:/Users/Daniel Gonzalez/Desktop/Proyecto-Etapa-Practica/VirtualConnection/AppVirtualConnection/static/json')
+RUTA_GUARDAR_JSON = os.path.join('C:/Users/Electrobyte/Desktop/Proyecto-Etapa-Practica/VirtualConnection/AppVirtualConnection/static/json')
 
 
 @csrf_exempt
